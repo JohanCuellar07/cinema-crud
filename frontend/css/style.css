@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", serif;
+    color: #f0f9ff;
+}
+
+.navbar{
+    width: 100%;
+    height: 100px;
+    background-color: #001;
+    display: grid;
+    grid-template-columns: 3fr 1fr 4fr 1fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.title{
+    font-size: 50px;
+    grid-column: 3;
+}
+
+.active{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.cinema{
+    grid-column: 5;
+}
+
+.crud:hover, .title:hover{
+    cursor: pointer;
+}
+
+.menu-button {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+}
+.menu{
+    background-image: url('../image/menu.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}
+
+.container{
+    background-color: #2E5077;
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    overflow-y: none;
+}
+
+.section-show{
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+table{
+    background-color: #001A6E;
+    border: #011453 solid 1px;
+    border-radius: 5px;
+    width: 100%;
+
+}
