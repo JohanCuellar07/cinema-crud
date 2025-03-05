@@ -6,8 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-@Entity(name = "cinema")
-public class cinema {
+@Entity(name = "cinemas")
+public class cinemas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,7 +23,7 @@ public class cinema {
     private String phone;
 
 
-    public cinema(String name, String address, String phone) {
+    public cinemas(String name, String address, String phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
