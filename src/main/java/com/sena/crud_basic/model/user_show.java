@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "user_show")
 public class user_show {
@@ -13,9 +14,32 @@ public class user_show {
     @Column(name = "user_id", nullable = false)
     private int id;
 
+    @ManyToOne
     @Column(name = "show_id", nullable = false)
-    private int show_id;
+    private shows show;
 
+    @ManyToOne
     @Column(name = "user_id", nullable = false)
-    private int user_id;
+    private users user;
+
+    public user_show(shows show, users user){
+        this.show = show;
+        this.user = user;
+    }
+
+    public int getShow_id(){
+        return show;
+    }
+
+    public void setShow_id(shows show){
+        this.show = show;
+    }
+
+    public int getUser_id(){
+        return user;
+    }
+
+    public void setUser_id(users user){
+        this.user = user;
+    }
 }

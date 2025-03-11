@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "movie_genre")
 public class movie_genre {
@@ -13,9 +15,32 @@ public class movie_genre {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "movie_id", nullable = false)
-    private int movie_id;
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false)
+    private movies movie;
 
-    @Column(name = "genre_id", nullable = false)
-    private int genre_id;
+    @ManyToOne
+    @JoinColumn(name = "genre_id", nullable = false)
+    private genres genre;
+
+    public movie_genre(movies movie, genres genre) {
+        this.movie = movie;
+        this.genre = genre;
+    }
+
+    public movies getMovie() {
+        return movie;
+    }
+
+    public void setMovie(movies movie) {
+        this.movie = movie;
+    }
+
+    public genres getGenre() {
+        return genre;
+    }
+
+    public void setGenre(genres genre) {
+        this.genre = genre;
+    }
 }

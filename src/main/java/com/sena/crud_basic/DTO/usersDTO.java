@@ -1,43 +1,20 @@
-package com.sena.crud_basic.model;
+package com.sena.crud_basic.DTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+public class usersDTO {
 
-@Entity(name = "users")
-public class users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
-
-    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "last_name", length = 50)
     private String last_name;
 
-    @Column(name = "phone", length = 10)
     private String phone;
 
-    @Column(name = "email", length = 100)
     private String email;
 
-    public users(int id, String name, String last_name, String phone, String email){
+    public usersDTO(String name, String last_name, String phone, String email){
         this.name = name;
         this.last_name = last_name;
         this.phone = phone;
         this.email = email;
-    }
-
-    public int getId(){
-        return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
     }
 
     public String getName(){
