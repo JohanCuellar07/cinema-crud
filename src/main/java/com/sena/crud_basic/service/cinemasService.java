@@ -12,24 +12,24 @@ public class cinemasService {
     public void save(cinemasDTO cinemasDTO){
         cinemas cinemasRegister = converToModel(cinemasDTO);
         data.save(cinemasRegister);
+    }
 
-        public cinemasDTO converToDTO(cinemas cinemas){
-            cinemasDTO cinemasDTO = new cinemasDTO(
-                cinemas.getName(),
-                cinemas.getAddress(),
-                cinemas.getPhone()
-            );
-            return cinemasDTO;
-        }
+    public cinemasDTO converToDTO(cinemas cinemas){
+        cinemasDTO cinemasDTO = new cinemasDTO(
+            cinemas.getName(),
+            cinemas.getAddress(),
+            cinemas.getPhone()
+        );
+        return cinemasDTO;
+    }
 
-        public cinemas converToModel(cinemasDTO cinemasDTO){
-            cinemas cinemas = new cinemas(
-                0,
-                cinemasDTO.getName(),
-                cinemasDTO.getAddress(),
-                cinemasDTO.getPhone()
-            );
-            return cinemas;
-        }
+    public cinemas converToModel(cinemasDTO cinemasDTO){
+        cinemas cinemas = new cinemas(
+            0,
+            cinemasDTO.getName(),
+            cinemasDTO.getAddress(),
+            cinemasDTO.getPhone()
+        );
+        return cinemas;
     }
 }

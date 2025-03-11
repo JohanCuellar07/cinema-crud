@@ -32,6 +32,7 @@ public class usersService {
             usersDTO.getLastName(),
             usersDTO.getPhone(),
             usersDTO.getEmail()
-        )
+        );
+        return users;
     }
 }

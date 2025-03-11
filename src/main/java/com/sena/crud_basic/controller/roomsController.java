@@ -20,6 +20,6 @@ public class roomsController {
     @PostMapping("/")
     public ResponseEntity<Object> registerRooms(@RequestBody roomsDTO rooms){
         roomsService.save(rooms);
-        return new ResponseEntity<>("Register OK", HttpStatus.OK)
+        return new ResponseEntity<>("Register OK", HttpStatus.OK);
     }
 }

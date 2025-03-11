@@ -1,16 +1,19 @@
 package com.sena.crud_basic.DTO;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class showsDTO {
 
     private int movie_id;
 
-    private Date date;
+    private LocalDate date;
 
-    private Time time;
+    private LocalTime time;
 
     private int price;
 
-    public showsDTO(int movie_id, Date date, Time time, int price){
+    public showsDTO(int movie_id, LocalDate date, LocalTime time, int price){
         this.movie_id = movie_id;
         this.date = date;
         this.time = time;
@@ -25,19 +28,19 @@ public class showsDTO {
         this.movie_id = movie_id;
     }
 
-    public Date getDate(){
+    public LocalDate getDate(){
         return date;
     }
 
-    public void setDate(Date date){
+    public void setDate(LocalDate date){
         this.date = date;
     }
 
-    public Time getTime(){
+    public LocalTime getTime(){
         return time;
     }
 
-    public void setTime(Time time){
+    public void setTime(LocalTime time){
         this.time = time;
     }
 

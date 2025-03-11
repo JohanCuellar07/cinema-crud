@@ -1,7 +1,7 @@
 package com.sena.crud_basic.model;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,15 +20,16 @@ public class shows {
     private int movie_id;
 
     @Column(name = "date", nullable = false)
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "time", nullable = false)
-    private Time time;
+    private LocalTime time;
 
     @Column(name = "price", nullable = false)
     private int price;
 
-    public shows(int id,int movie_id, Date date, Time time, int price){
+    public shows(int id,int movie_id, LocalDate date, LocalTime time, int price){
+        this.id = id;
         this.movie_id = movie_id;
         this.date = date;
         this.time = time;
@@ -51,19 +52,19 @@ public class shows {
         this.movie_id = movie_id;
     }
 
-    public Date getDate(){
+    public LocalDate getDate(){
         return date;
     }
 
-    public void setDate(Date date){
+    public void setDate(LocalDate date){
         this.date = date;
     }
 
-    public Time getTime(){
+    public LocalTime getTime(){
         return time;
     }
 
-    public void setTime(Time time){
+    public void setTime(LocalTime time){
         this.time = time;
     }
 

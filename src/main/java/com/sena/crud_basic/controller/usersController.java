@@ -20,6 +20,6 @@ public class usersController {
     @PostMapping("/")
     public ResponseEntity<Object> registerUsers(@RequestBody usersDTO users){
         usersService.save(users);
-        return new ResponseEntity<>("register OK", HttpStatus.OK)
+        return new ResponseEntity<>("register OK", HttpStatus.OK);
     }
 }

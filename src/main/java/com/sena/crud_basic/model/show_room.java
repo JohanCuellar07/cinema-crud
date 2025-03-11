@@ -27,7 +27,7 @@ public class show_room {
         this.room = room;
     }
 
-    public int getShow(){
+    public shows getShow(){
         return show;
     }
 
@@ -35,7 +35,7 @@ public class show_room {
         this.show = show;
     }
 
-    public int getRoom(){
+    public rooms getRoom(){
         return room;
     }
 

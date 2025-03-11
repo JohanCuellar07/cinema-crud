@@ -27,7 +27,7 @@ public class user_show {
         this.user = user;
     }
 
-    public int getShow_id(){
+    public shows getShow_id(){
         return show;
     }
 
@@ -35,7 +35,7 @@ public class user_show {
         this.show = show;
     }
 
-    public int getUser_id(){
+    public users getUser_id(){
         return user;
     }
 

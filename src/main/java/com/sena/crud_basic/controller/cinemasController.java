@@ -1,6 +1,5 @@
 package com.sena.crud_basic.controller;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,6 @@ public class cinemasController {
     @PostMapping("/")
     public ResponseEntity<Object> registerCinemas(@RequestBody cinemasDTO cinemas){
         cinemasService.save(cinemas);
-        return new ResponseEntity<>("register OK", HttpStatus.OK)
+        return new ResponseEntity<>("register OK", HttpStatus.OK);
     }
 }

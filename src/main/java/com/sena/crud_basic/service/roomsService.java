@@ -13,26 +13,26 @@ public class roomsService {
     public void save(roomsDTO roomsDTO){
         rooms roomsRegister = converToModel(roomsDTO);
         data.save(roomsRegister);
+    }
 
-        public roomsDTO converToDTO(rooms rooms){
-            roomsDTO roomsDTO = new roomsDTO(
-                rooms.getCinema_id(),
-                rooms.getNum_room(),
-                rooms.getCapacity(),
-                rooms.getType()
-            );
-            return roomsDTO;
-        }
-            
-        public rooms converToModel(roomsDTO roomsDTO){
-            rooms rooms = new rooms(
-                0,
-                roomsDTO.getCinema_id(),
-                roomsDTO.getNum_room(),
-                roomsDTO.getCapacity(),
-                roomsDTO.getType()
-            );
-            return rooms;
-        }
+    public roomsDTO converToDTO(rooms rooms){
+        roomsDTO roomsDTO = new roomsDTO(
+            rooms.getCinema_id(),
+            rooms.getNum_room(),
+            rooms.getCapacity(),
+            rooms.getType()
+        );
+        return roomsDTO;
+    }
+        
+    public rooms converToModel(roomsDTO roomsDTO){
+        rooms rooms = new rooms(
+            0,
+            roomsDTO.getCinema_id(),
+            roomsDTO.getNum_room(),
+            roomsDTO.getCapacity(),
+            roomsDTO.getType()
+        );
+        return rooms;
     }
 }
