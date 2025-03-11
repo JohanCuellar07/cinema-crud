@@ -1,36 +1,39 @@
 package com.sena.crud_basic.DTO;
 
+import com.sena.crud_basic.model.movies;
+import com.sena.crud_basic.model.users;
+
 public class reviewsDTO {
 
-    private int movie_id;
+    private movies movie;
 
-    private int user_id;
+    private users user;
 
     private int rating;
 
     private String comment;
 
-    public reviewsDTO(int movie_id, int user_id, int rating, String comment){
-        this.movie_id = movie_id;
-        this.user_id = user_id;
+    public reviewsDTO(movies movie, users user, int rating, String comment){
+        this.movie = movie;
+        this.user = user;
         this.rating = rating;
         this.comment = comment;
     }
 
-    public int getMovie_id(){
-        return movie_id;
+    public movies getMovie_id(){
+        return movie;
     }
 
-    public void setMovie_id(int movie_id){
-        this.movie_id = movie_id;
+    public void setMovie_id(movies movie){
+        this.movie = movie;
     }
 
-    public int getUser_id(){
-        return user_id;
+    public users getUser_id(){
+        return user;
     }
 
-    public void setUser_id(int user_id){
-        this.user_id = user_id;
+    public void setUser_id(users user){
+        this.user = user;
     }
 
     public int getRating(){

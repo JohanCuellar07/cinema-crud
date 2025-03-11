@@ -3,9 +3,11 @@ package com.sena.crud_basic.DTO;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.sena.crud_basic.model.movies;
+
 public class showsDTO {
 
-    private int movie_id;
+    private movies movie;
 
     private LocalDate date;
 
@@ -13,19 +15,19 @@ public class showsDTO {
 
     private int price;
 
-    public showsDTO(int movie_id, LocalDate date, LocalTime time, int price){
-        this.movie_id = movie_id;
+    public showsDTO(movies movie, LocalDate date, LocalTime time, int price){
+        this.movie = movie;
         this.date = date;
         this.time = time;
         this.price = price;
     }
 
-    public int getMovie_id(){
-        return movie_id;
+    public movies getMovie_id(){
+        return movie;
     }
 
-    public void setMovie_id(int movie_id){
-        this.movie_id = movie_id;
+    public void setMovie_id(movies movie){
+        this.movie = movie;
     }
 
     public LocalDate getDate(){

@@ -3,6 +3,8 @@ package com.sena.crud_basic.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,9 +23,9 @@ public class movies {
     private int time_min;
 
     @Column(name = "launch_year")
-    private java.sql.Date launch_year;
+    private LocalDate launch_year;
 
-    public movies(int id, String title, int time_min, java.sql.Date launch_year) {
+    public movies(int id, String title, int time_min, LocalDate launch_year) {
         this.title = title;
         this.time_min = time_min;
         this.launch_year = launch_year;
@@ -53,11 +55,11 @@ public class movies {
         this.time_min = time_min;
     }
 
-    public java.sql.Date getLaunch_year() {
+    public LocalDate getLaunch_year() {
         return launch_year;
     }
 
-    public void setLaunch_year(java.sql.Date launch_year) {
+    public void setLaunch_year(LocalDate launch_year) {
         this.launch_year = launch_year;
     }
 }

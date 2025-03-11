@@ -28,19 +28,19 @@ public class movie_genre {
         this.genre = genre;
     }
 
-    public movies getMovie() {
+    public movies getMovie_id() {
         return movie;
     }
 
-    public void setMovie(movies movie) {
+    public void setMovie_id(movies movie) {
         this.movie = movie;
     }
 
-    public genres getGenre() {
+    public genres getGenre_id() {
         return genre;
     }
 
-    public void setGenre(genres genre) {
+    public void setGenre_id(genres genre) {
         this.genre = genre;
     }
 }

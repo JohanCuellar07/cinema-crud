@@ -1,8 +1,10 @@
 package com.sena.crud_basic.DTO;
 
+import com.sena.crud_basic.model.cinemas;
+
 public class roomsDTO {
 
-    private int cinema_id;
+    private cinemas cinema;
 
     private String num_room;
 
@@ -10,19 +12,19 @@ public class roomsDTO {
 
     private String type;
 
-    public roomsDTO(int cinema_id, String num_room, int capacity, String type){
-        this.cinema_id = cinema_id;
+    public roomsDTO(cinemas cinema, String num_room, int capacity, String type){
+        this.cinema = cinema;
         this.num_room = num_room;
         this.capacity = capacity;
         this.type = type;
     }
 
-    public int getCinema_id(){
-        return cinema_id;
+    public cinemas getCinema_id(){
+        return cinema;
     }
 
-    public void setCinema_id(int cinema_id){
-        this.cinema_id = cinema_id;
+    public void setCinema_id(cinemas cinema){
+        this.cinema = cinema;
     }
 
     public String getNum_room(){

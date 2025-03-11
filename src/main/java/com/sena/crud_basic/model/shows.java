@@ -17,7 +17,7 @@ public class shows {
     private int id;
 
     @Column(name = " movie_id", nullable = false)
-    private int movie_id;
+    private movies movie;
 
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -28,9 +28,9 @@ public class shows {
     @Column(name = "price", nullable = false)
     private int price;
 
-    public shows(int id,int movie_id, LocalDate date, LocalTime time, int price){
+    public shows(int id, movies movie, LocalDate date, LocalTime time, int price){
         this.id = id;
-        this.movie_id = movie_id;
+        this.movie = movie;
         this.date = date;
         this.time = time;
         this.price = price;
@@ -44,12 +44,12 @@ public class shows {
         this.id = id;
     }
 
-    public int getMovie_id(){
-        return movie_id;
+    public movies getMovie_id(){
+        return movie;
     }
 
-    public void setMovie_id(int movie_id){
-        this.movie_id = movie_id;
+    public void setMovie_id(movies movie){
+        this.movie = movie;
     }
 
     public LocalDate getDate(){

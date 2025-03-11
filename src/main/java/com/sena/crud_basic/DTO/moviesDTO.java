@@ -1,14 +1,16 @@
 package com.sena.crud_basic.DTO;
 
+import java.time.LocalDate;
+
 public class moviesDTO {
     
     private String title;
 
     private int time_min;
 
-    private java.sql.Date launch_year;
+    private LocalDate launch_year;
 
-    public moviesDTO(String title, int time_min, java.sql.Date launch_year) {
+    public moviesDTO(String title, int time_min, LocalDate launch_year) {
         this.title = title;
         this.time_min = time_min;
         this.launch_year = launch_year;
@@ -29,11 +31,11 @@ public class moviesDTO {
         this.time_min = time_min;
     }
 
-    public java.sql.Date getLaunch_year(){
+    public LocalDate getLaunch_year(){
         return launch_year;
     }
 
-    public void setLaunch_year(java.sql.Date launch_year){
+    public void setLaunch_year(LocalDate launch_year){
         this.launch_year = launch_year;
     }
 }

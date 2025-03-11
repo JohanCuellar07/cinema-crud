@@ -17,11 +17,11 @@ public class reviews {
 
     @ManyToOne
     @Column(name = "movie_id", nullable = false)
-    private int movie_id;
+    private movies movie;
 
     @ManyToOne
     @Column(name = "user_id", nullable = false)
-    private int user_id;
+    private users user;
 
     @Column(name = "rating", nullable = false)
     private int rating;
@@ -29,10 +29,10 @@ public class reviews {
     @Column(name = "comment", length = 150)
     private String comment;
 
-    public reviews(int id, int movie_id, int user_id, int rating, String comment){
+    public reviews(int id, movies movie, users user, int rating, String comment){
         this.id = id;
-        this.movie_id = movie_id;
-        this.user_id = user_id;
+        this.movie = movie;
+        this.user = user;
         this.rating = rating;
         this.comment = comment;
     }
@@ -45,20 +45,20 @@ public class reviews {
         this.id = id;
     }
 
-    public int getMovie_id(){
-        return movie_id;
+    public movies getMovie_id(){
+        return movie;
     }
 
-    public void setMovie_id(int movie_id){
-        this.movie_id = movie_id;
+    public void setMovie_id(movies movie){
+        this.movie = movie;
     }
 
-    public int getUser_id(){
-        return user_id;
+    public users getUser_id(){
+        return user;
     }
 
-    public void setUser_id(int user_id){
-        this.user_id = user_id;
+    public void setUser_id(users user){
+        this.user = user;
     }
 
     public int getRating(){
