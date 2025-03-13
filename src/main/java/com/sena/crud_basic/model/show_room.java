@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity(name = "show_room")
@@ -15,11 +16,11 @@ public class show_room {
     private int id;
 
     @ManyToOne
-    @Column(name = "show_id", nullable = false)
+    @JoinColumn(name = "show_id", nullable = false)
     private shows show;
 
     @ManyToOne
-    @Column(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id", nullable = false)
     private rooms room;
 
     public show_room(shows show, rooms room){
