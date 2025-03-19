@@ -20,6 +20,8 @@ public class genres {
     @Column(name = "description", length = 200)
     private String description;
 
+    public genres(){}
+
     public genres(int id, String name, String description){
         this.id = id;
         this.name = name;

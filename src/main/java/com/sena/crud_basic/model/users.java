@@ -26,6 +26,8 @@ public class users {
     @Column(name = "email", length = 100)
     private String email;
 
+    public users(){}
+
     public users(int id, String name, String last_name, String phone, String email){
         this.name = name;
         this.last_name = last_name;

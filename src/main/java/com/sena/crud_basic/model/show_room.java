@@ -24,6 +24,8 @@ public class show_room {
     @JoinColumn(name = "room_id", nullable = false)
     private rooms room;
 
+    public show_room(){}
+
     public show_room(shows show, rooms room){
         this.show = show;
         this.room = room;

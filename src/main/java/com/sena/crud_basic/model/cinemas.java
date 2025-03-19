@@ -23,6 +23,7 @@ public class cinemas {
     @Column(name = "phone", length = 20)
     private String phone;
 
+    public cinemas(){}
 
     public cinemas(int id, String name, String address, String phone) {
         this.id = id;

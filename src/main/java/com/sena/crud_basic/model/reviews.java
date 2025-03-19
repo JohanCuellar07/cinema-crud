@@ -30,6 +30,8 @@ public class reviews {
     @Column(name = "comment", length = 150)
     private String comment;
 
+    public reviews(){}
+
     public reviews(int id, movies movie, users user, int rating, String comment){
         this.id = id;
         this.movie = movie;

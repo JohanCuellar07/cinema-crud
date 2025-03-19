@@ -25,6 +25,8 @@ public class movies {
     @Column(name = "launch_year")
     private LocalDate launch_year;
 
+    public movies(){}
+
     public movies(int id, String title, int time_min, LocalDate launch_year) {
         this.title = title;
         this.time_min = time_min;

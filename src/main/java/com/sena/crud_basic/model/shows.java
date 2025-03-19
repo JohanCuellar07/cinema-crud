@@ -29,6 +29,8 @@ public class shows {
     @Column(name = "price", nullable = false)
     private int price;
 
+    public shows(){}
+
     public shows(int id, movies movie, LocalDate date, LocalTime time, int price){
         this.id = id;
         this.movie = movie;

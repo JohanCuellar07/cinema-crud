@@ -24,6 +24,8 @@ public class user_show {
     @JoinColumn(name = "user_id", nullable = false)
     private users user;
 
+    public user_show(){}
+
     public user_show(shows show, users user){
         this.show = show;
         this.user = user;

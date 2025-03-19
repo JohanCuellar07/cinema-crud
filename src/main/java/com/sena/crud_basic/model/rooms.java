@@ -29,6 +29,8 @@ public class rooms {
     @Column(name = "type", length = 30)
     private String type;
 
+    public rooms(){}
+
     public rooms(int id, cinemas cinema, String num_room, int capacity, String type){
         this.id = id;
         this.cinema = cinema;
