@@ -26,7 +26,8 @@ public class movie_genre {
 
     public movie_genre(){}
 
-    public movie_genre(movies movie, genres genre) {
+    public movie_genre(int id, movies movie, genres genre) {
+        this.id = id;
         this.movie = movie;
         this.genre = genre;
     }

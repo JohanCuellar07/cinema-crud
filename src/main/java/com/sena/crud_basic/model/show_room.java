@@ -26,7 +26,8 @@ public class show_room {
 
     public show_room(){}
 
-    public show_room(shows show, rooms room){
+    public show_room(int id, shows show, rooms room){
+        this.id = id;
         this.show = show;
         this.room = room;
     }

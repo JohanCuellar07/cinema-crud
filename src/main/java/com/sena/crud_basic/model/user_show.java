@@ -26,7 +26,8 @@ public class user_show {
 
     public user_show(){}
 
-    public user_show(shows show, users user){
+    public user_show(int id, shows show, users user){
+        this.id = id;
         this.show = show;
         this.user = user;
     }

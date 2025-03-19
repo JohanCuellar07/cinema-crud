@@ -1,7 +1,6 @@
 package com.sena.crud_basic.model;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
@@ -28,6 +27,7 @@ public class movies {
     public movies(){}
 
     public movies(int id, String title, int time_min, LocalDate launch_year) {
+        this.id = id;
         this.title = title;
         this.time_min = time_min;
         this.launch_year = launch_year;
