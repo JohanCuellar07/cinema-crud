@@ -1,17 +1,62 @@
 package com.sena.crud_basic.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.cinemasDTO;
+import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.model.cinemas;
 import com.sena.crud_basic.repository.Icinemas;
 
+@Service
 public class cinemasService {
+    
     @Autowired
     private Icinemas data;
-    public void save(cinemasDTO cinemasDTO){
+
+    public List<cinemas> findAll(){
+        return data.findAll();
+    }
+
+    public Optional<cinemas> findById(int id){
+        return data.findById(id);
+    }
+
+    public responseDTO deleteCinema(int id){
+        if (!findById(id).isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.OK.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        data.deleteById(id);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully deleted"
+            );
+            return respuesta;
+    }
+
+    public responseDTO save(cinemasDTO cinemasDTO){
+        if (cinemasDTO.getName().length() < 1 || cinemasDTO.getName().length() > 50) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The name must be between 1 and 50 characters"
+            );
+            return respuesta;
+        }
         cinemas cinemasRegister = converToModel(cinemasDTO);
         data.save(cinemasRegister);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully registered"
+        );
+        return respuesta;
     }
 
     public cinemasDTO converToDTO(cinemas cinemas){

@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 
 @Entity(name = "cinemas")
 public class cinemas {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

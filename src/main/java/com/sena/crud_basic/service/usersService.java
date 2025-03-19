@@ -12,6 +12,7 @@ import com.sena.crud_basic.repository.Iusers;
 
 @Service
 public class usersService {
+    
     @Autowired
     private Iusers data;
 

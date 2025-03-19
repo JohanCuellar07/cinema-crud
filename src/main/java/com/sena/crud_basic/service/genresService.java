@@ -1,12 +1,15 @@
 package com.sena.crud_basic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.genresDTO;
 import com.sena.crud_basic.model.genres;
 import com.sena.crud_basic.repository.Igenres;
 
+@Service
 public class genresService {
+    
     @Autowired
     private Igenres data;
 

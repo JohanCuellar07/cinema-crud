@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 
 @Entity(name = "shows")
 public class shows {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

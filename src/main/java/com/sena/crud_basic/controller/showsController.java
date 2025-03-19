@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sena.crud_basic.DTO.showsDTO;
 
 @RestController
 @RequestMapping("/shows")
 public class showsController {
+    
     @Autowired
     private com.sena.crud_basic.service.showsService showsService;
 

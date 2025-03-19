@@ -1,16 +1,16 @@
 package com.sena.crud_basic.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity(name = "movies")
 public class movies {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

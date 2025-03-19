@@ -2,7 +2,6 @@ package com.sena.crud_basic.DTO;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import com.sena.crud_basic.model.movies;
 
 public class showsDTO {

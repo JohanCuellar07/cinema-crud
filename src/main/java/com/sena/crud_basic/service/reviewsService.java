@@ -1,12 +1,15 @@
 package com.sena.crud_basic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.reviewsDTO;
 import com.sena.crud_basic.model.reviews;
 import com.sena.crud_basic.repository.Ireviews;
 
+@Service
 public class reviewsService {
+    
     @Autowired
     private Ireviews data;
 

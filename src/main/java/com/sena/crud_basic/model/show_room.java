@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity(name = "show_room")
 public class show_room {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

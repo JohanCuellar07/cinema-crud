@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 
 @Entity(name = "genres")
 public class genres {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
