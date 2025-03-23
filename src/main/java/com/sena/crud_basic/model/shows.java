@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "shows")
 public class shows {
@@ -17,7 +19,8 @@ public class shows {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = " movie_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false)
     private movies movie;
 
     @Column(name = "date", nullable = false)

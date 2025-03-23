@@ -13,7 +13,7 @@ public class user_show {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @ManyToOne
