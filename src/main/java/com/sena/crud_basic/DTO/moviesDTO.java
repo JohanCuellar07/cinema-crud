@@ -6,12 +6,15 @@ public class moviesDTO {
     
     private String title;
 
+    private String description;
+
     private int time_min;
 
     private LocalDate launch_year;
 
-    public moviesDTO(String title, int time_min, LocalDate launch_year) {
+    public moviesDTO(String title, String description, int time_min, LocalDate launch_year) {
         this.title = title;
+        this.description = description;
         this.time_min = time_min;
         this.launch_year = launch_year;
     }
@@ -21,6 +24,14 @@ public class moviesDTO {
 
     public void setTitle(String title){
         this.title = title;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public int getTime_min(){

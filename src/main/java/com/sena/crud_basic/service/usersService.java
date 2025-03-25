@@ -48,6 +48,27 @@ public class usersService {
             );
             return respuesta;
         }
+        if (usersDTO.getLastName().length() > 50) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The last name cannot exceed 50 characters"
+            );
+            return respuesta;
+        }
+        if (usersDTO.getPhone().length() > 10) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The phone cannot exceed 10 characters"
+            );
+            return respuesta;
+        }
+        if (usersDTO.getEmail().length() > 100) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The email cannot exceed 100 characters"
+            );
+            return respuesta;
+        }
         users usersRegister = converToModel(usersDTO);
         data.save(usersRegister);
         responseDTO respuesta = new responseDTO(

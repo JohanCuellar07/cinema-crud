@@ -50,6 +50,20 @@ public class cinemasService {
             );
             return respuesta;
         }
+        if (cinemasDTO.getAddress().length() > 70) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The address cannot exceed 70 characters"
+            );
+            return respuesta;
+        }
+        if (cinemasDTO.getPhone().length() > 10) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The phone cannot exceed 10 characters"
+            );
+            return respuesta;
+        }
         cinemas cinemasRegister = converToModel(cinemasDTO);
         data.save(cinemasRegister);
         responseDTO respuesta = new responseDTO(

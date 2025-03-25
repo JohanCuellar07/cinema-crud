@@ -17,10 +17,10 @@ public class cinemas {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "address", length = 70, nullable = false)
+    @Column(name = "address", length = 70)
     private String address;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone", length = 10)
     private String phone;
 
     public cinemas(){}

@@ -1,9 +1,14 @@
 package com.sena.crud_basic.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.genresDTO;
+import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.model.genres;
 import com.sena.crud_basic.repository.Igenres;
 
@@ -13,9 +18,52 @@ public class genresService {
     @Autowired
     private Igenres data;
 
-    public void save(genresDTO genresDTO){
+    public List<genres> findAll(){
+        return data.findAll();
+    }
+
+    public Optional<genres> findById(int id){
+        return data.findById(id);
+    }
+
+    public responseDTO deleteGenre(int id){
+        if (!findById(id).isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.OK.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        data.deleteById(id);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was succesfully deleted"
+        );
+        return respuesta;
+    }
+
+    public responseDTO save(genresDTO genresDTO){
+        if (genresDTO.getName().length() < 1 || genresDTO.getName().length() > 50) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The name cannot be empty or exceed 50 characters"
+            );
+            return respuesta;
+        }
+        if (genresDTO.getDescription().length() > 200) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "The description cannot exceed 200 characters"
+            );
+            return respuesta;
+        }
         genres genresRegister = converToModel(genresDTO);
         data.save(genresRegister);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was succesfully saved"
+        );
+        return respuesta;
     }
 
     public genresDTO converToDTO(genres genres){

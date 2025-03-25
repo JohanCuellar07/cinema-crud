@@ -7,7 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.DTO.showsDTO;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/shows")
@@ -18,7 +24,28 @@ public class showsController {
 
     @PostMapping("/")
     public ResponseEntity<Object> registerShows(@RequestBody showsDTO shows){
-        showsService.save(shows);
-        return new ResponseEntity<>("Register OK", HttpStatus.OK);
+        responseDTO respuesta = showsService.save(shows);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<Object> getAllShows() {
+        var listaFunciones = showsService.findAll();
+        return new ResponseEntity<>(listaFunciones, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{ID}")
+    public ResponseEntity<Object> getOneShow(@PathVariable int id) {
+        var funcion = showsService.findById(id);
+        if (!funcion.isPresent()) {
+            return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(funcion, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteShow(@PathVariable int id){
+        var message = showsService.deleteShow(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sena.crud_basic.DTO.genresDTO;
+import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.service.genresService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/genres")
@@ -19,7 +24,28 @@ public class genresController {
 
     @PostMapping("/")
     public ResponseEntity<Object> registerGenres(@RequestBody genresDTO genres){
-        genresService.save(genres);
-        return new ResponseEntity<>("register OK", HttpStatus.OK);
+        responseDTO respuesta = genresService.save(genres);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<Object> getAllGenres() {
+        var listaGeneros = genresService.findAll();
+        return new ResponseEntity<>(listaGeneros, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getOneGenre(@PathVariable int id){
+        var genero = genresService.findById(id);
+        if (!genero.isPresent()) {
+            return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(genero, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteGenre(@PathVariable int id){
+        var message = genresService.deleteGenre(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

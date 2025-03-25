@@ -18,6 +18,9 @@ public class movies {
     @Column(name = "title", length = 50, nullable = false)
     private String title;
 
+    @Column(name = "description", length = 200)
+    private String description;
+
     @Column(name = "time_min")
     private int time_min;
 
@@ -26,9 +29,10 @@ public class movies {
 
     public movies(){}
 
-    public movies(int id, String title, int time_min, LocalDate launch_year) {
+    public movies(int id, String title, String description, int time_min, LocalDate launch_year) {
         this.id = id;
         this.title = title;
+        this.description = description;
         this.time_min = time_min;
         this.launch_year = launch_year;
     }
@@ -47,6 +51,14 @@ public class movies {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public int getTime_min() {

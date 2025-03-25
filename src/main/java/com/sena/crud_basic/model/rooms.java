@@ -20,7 +20,7 @@ public class rooms {
     @JoinColumn(name = "cinema_id", nullable = false)
     private cinemas cinema;
 
-    @Column(name = "num_room", length = 3)
+    @Column(name = "num_room", length = 3, nullable = false)
     private String num_room;
 
     @Column(name = "capacity")
