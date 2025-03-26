@@ -52,13 +52,13 @@ public class moviesController {
         var moviesList = moviesService.getListMoviesForTitle(filter);
         return new ResponseEntity<>(moviesList, HttpStatus.OK);
     }
-
+    /* 
     @GetMapping("/filter/launch_year/{filter}")
     public ResponseEntity<Object> getListMoviesForLaunchYear(@PathVariable String filter){
         var moviesList = moviesService.getListMoviesForLaunchYear(filter);
         return new ResponseEntity<>(moviesList, HttpStatus.OK);
     }
-
+    */
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteMovie(@PathVariable int id){
         var message = moviesService.deleteMovie(id);

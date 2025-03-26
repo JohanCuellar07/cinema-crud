@@ -13,9 +13,10 @@ public interface Imovies extends JpaRepository<movies, Integer>{
 
     @Query("SELECT m FROM movies m WHERE m.title LIKE %?1%")
     List<movies> getListMoviesForTitle(String filter);
-
+    /* 
     @Query("SELECT m FROM movies m WHERE m.launch_year LIKE %?1%")
     List<movies> getListMoviesForLaunchYear(String filter);
+    */
     /*
      * C
      * R

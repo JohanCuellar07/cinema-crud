@@ -42,7 +42,7 @@ public class reviewsController {
         }
         return new ResponseEntity<>(resena, HttpStatus.OK);
     }
-    
+    /* 
     @GetMapping("/filter/movie/{filter}")
     public ResponseEntity<Object> getListReviewsForMovie(@PathVariable String filter){
         var reviewsList = reviewsService.getListReviewsForMovie(filter);
@@ -60,7 +60,7 @@ public class reviewsController {
         var reviewsList = reviewsService.getListReviewsForRating(filter);
         return new ResponseEntity<>(reviewsList, HttpStatus.OK);
     }
-    
+    */
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteReview(@PathVariable int id){
         var message = reviewsService.deleteReview(id);

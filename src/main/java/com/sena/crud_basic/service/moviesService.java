@@ -33,10 +33,11 @@ public class moviesService {
     public List<movies> getListMoviesForTitle(String filter){
         return data.getListMoviesForTitle(filter);
     }
-
+    /* 
     public List<movies> getListMoviesForLaunchYear(String filter){
         return data.getListMoviesForLaunchYear(filter);
     }
+    */
 
     public Optional<movies> findById(int id){
         return data.findById(id);

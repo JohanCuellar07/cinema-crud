@@ -13,7 +13,8 @@ public interface Irooms extends JpaRepository<rooms, Integer>{
 
     @Query("SELECT r FROM rooms r WHERE r.type LIKE %?1%")
     List<rooms> getListRoomsForType(String filter);
-
+    /* 
     @Query("SELECT r FROM rooms r WHERE r.capacity LIKE %?1%")
     List<rooms> getListRoomsForCapacity(String filter);
+    */
 }

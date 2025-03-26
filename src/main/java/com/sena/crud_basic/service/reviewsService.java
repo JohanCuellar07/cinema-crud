@@ -22,7 +22,7 @@ public class reviewsService {
         //return data.findAll();
         return data.getListReviewsActive();
     }
-
+    /* 
     public List<reviews> getListReviewsForMovie(String filter){
         return data.getListReviewsForMovie(filter);
     }
@@ -34,6 +34,7 @@ public class reviewsService {
     public List<reviews> getListReviewsForRating(String filter){
         return data.getListReviewsForRating(filter);
     }
+    */
 
     public Optional<reviews> findById(int id){
         return data.findById(id);

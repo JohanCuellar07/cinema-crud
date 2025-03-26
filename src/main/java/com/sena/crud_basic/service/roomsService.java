@@ -26,11 +26,11 @@ public class roomsService {
     public List<rooms> getListRoomsForType(String filter){
         return data.getListRoomsForType(filter);
     }
-
+    /* 
     public List<rooms> getListRoomsForCapacity(String filter){
         return data.getListRoomsForCapacity(filter);
     }
-
+    */
     public Optional<rooms> findById(int id){
         return data.findById(id);
     }
