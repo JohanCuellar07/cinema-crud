@@ -27,14 +27,18 @@ public class movies {
     @Column(name = "launch_year")
     private LocalDate launch_year;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     public movies(){}
 
-    public movies(int id, String title, String description, int time_min, LocalDate launch_year) {
+    public movies(int id, String title, String description, int time_min, LocalDate launch_year, boolean status) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.time_min = time_min;
         this.launch_year = launch_year;
+        this.status = status;
     }
 
     public int getId(){
@@ -75,5 +79,13 @@ public class movies {
 
     public void setLaunch_year(LocalDate launch_year) {
         this.launch_year = launch_year;
+    }
+
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }

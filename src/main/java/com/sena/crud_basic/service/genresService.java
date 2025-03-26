@@ -19,7 +19,12 @@ public class genresService {
     private Igenres data;
 
     public List<genres> findAll(){
-        return data.findAll();
+        //return data.findAll();
+        return data.getListGenresActive();
+    }
+
+    public List<genres> getListGenresForName(String filter){
+        return data.getListGenresForName(filter);
     }
 
     public Optional<genres> findById(int id){
@@ -78,7 +83,8 @@ public class genresService {
         genres genres = new genres(
             0,
             genresDTO.getName(),
-            genresDTO.getDescription()
+            genresDTO.getDescription(),
+            true
         );
         return genres;
     }

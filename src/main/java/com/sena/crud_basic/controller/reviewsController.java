@@ -43,6 +43,24 @@ public class reviewsController {
         return new ResponseEntity<>(resena, HttpStatus.OK);
     }
     
+    @GetMapping("/filter/movie/{filter}")
+    public ResponseEntity<Object> getListReviewsForMovie(@PathVariable String filter){
+        var reviewsList = reviewsService.getListReviewsForMovie(filter);
+        return new ResponseEntity<>(reviewsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/user/{filter}")
+    public ResponseEntity<Object> getListReviewsForUser(@PathVariable String filter){
+        var reviewsList = reviewsService.getListReviewsForUser(filter);
+        return new ResponseEntity<>(reviewsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/rating/{filter}")
+    public ResponseEntity<Object> getListReviewsForRating(@PathVariable String filter){
+        var reviewsList = reviewsService.getListReviewsForRating(filter);
+        return new ResponseEntity<>(reviewsList, HttpStatus.OK);
+    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteReview(@PathVariable int id){
         var message = reviewsService.deleteReview(id);

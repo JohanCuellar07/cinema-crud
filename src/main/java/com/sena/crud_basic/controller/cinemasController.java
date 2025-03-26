@@ -42,6 +42,24 @@ public class cinemasController {
         return new ResponseEntity<>(cine, HttpStatus.OK);
     }
 
+    @GetMapping("/filter/name/{filter}")
+    public ResponseEntity<Object> getListCinemasForName(@PathVariable String filter){
+        var cinemasList = cinemasService.getListCinemasForName(filter);
+        return new ResponseEntity<>(cinemasList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/address/{filter}")
+    public ResponseEntity<Object> getListCinemasForAddress(@PathVariable String filter){
+        var cinemasList = cinemasService.getListCinemasForAddress(filter);
+        return new ResponseEntity<>(cinemasList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/phone/{filter}")
+    public ResponseEntity<Object> getListCinemasForPhone(@PathVariable String filter){
+        var cinemasList = cinemasService.getListCinemasForPhone(filter);
+        return new ResponseEntity<>(cinemasList, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCinema(@PathVariable int id){
         var message = cinemasService.deleteCinema(id);

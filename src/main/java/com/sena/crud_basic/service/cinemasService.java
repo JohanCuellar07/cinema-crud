@@ -19,7 +19,20 @@ public class cinemasService {
     private Icinemas data;
 
     public List<cinemas> findAll(){
-        return data.findAll();
+        //return data.findAll();
+        return data.getListCinemasActive();
+    }
+
+    public List<cinemas> getListCinemasForName(String filter){
+        return data.getListCinemasForName(filter);
+    }
+
+    public List<cinemas> getListCinemasForAddress(String filter){
+        return data.getListCinemasForAddress(filter);
+    }
+
+    public List<cinemas> getListCinemasForPhone(String filter){
+        return data.getListCinemasForPhone(filter);
     }
 
     public Optional<cinemas> findById(int id){
@@ -87,7 +100,8 @@ public class cinemasService {
             0,
             cinemasDTO.getName(),
             cinemasDTO.getAddress(),
-            cinemasDTO.getPhone()
+            cinemasDTO.getPhone(),
+            true
         );
         return cinemas;
     }

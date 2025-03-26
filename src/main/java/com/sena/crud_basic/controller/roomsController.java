@@ -42,6 +42,18 @@ public class roomsController {
         }
         return new ResponseEntity<>(sala, HttpStatus.OK);
     }
+
+    @GetMapping("/filter/type/{filter}")
+    public ResponseEntity<Object> getListRoomsForType(@PathVariable String filter){
+        var roomsList = roomsService.getListRoomsForType(filter);
+        return new ResponseEntity<>(roomsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/capacity/{filter}")
+    public ResponseEntity<Object> getListRoomsForCapacity(@PathVariable String filter){
+        var roomsList = roomsService.getListRoomsForCapacity(filter);
+        return new ResponseEntity<>(roomsList, HttpStatus.OK);
+    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteRoom(@PathVariable int id){

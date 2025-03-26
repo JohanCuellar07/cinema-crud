@@ -19,7 +19,16 @@ public class roomsService {
     private Irooms data;
 
     public List<rooms> findAll(){
-        return data.findAll();
+        //return data.findAll();
+        return data.getListRoomsActive();
+    }
+
+    public List<rooms> getListRoomsForType(String filter){
+        return data.getListRoomsForType(filter);
+    }
+
+    public List<rooms> getListRoomsForCapacity(String filter){
+        return data.getListRoomsForCapacity(filter);
     }
 
     public Optional<rooms> findById(int id){
@@ -89,7 +98,8 @@ public class roomsService {
             roomsDTO.getCinema_id(),
             roomsDTO.getNum_room(),
             roomsDTO.getCapacity(),
-            roomsDTO.getType()
+            roomsDTO.getType(),
+            true
         );
         return rooms;
     }

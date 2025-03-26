@@ -19,7 +19,8 @@ public class showsService {
     private Ishows data;
 
     public List<shows> findAll(){
-        return data.findAll();
+        //return data.findAll();
+        return data.getListShowsActive();
     }
 
     public Optional<shows> findById(int id){
@@ -96,7 +97,8 @@ public class showsService {
             showsDTO.getMovie_id(),
             showsDTO.getDate(),
             showsDTO.getTime(),
-            showsDTO.getPrice()
+            showsDTO.getPrice(),
+            true
         );
         return shows;
     }

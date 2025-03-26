@@ -26,7 +26,16 @@ public class moviesService {
     private Imovies data;
 
     public List<movies> findAll(){
-       return data.findAll();
+       //return data.findAll();
+       return data.getLisMoviesActive();
+    }
+
+    public List<movies> getListMoviesForTitle(String filter){
+        return data.getListMoviesForTitle(filter);
+    }
+
+    public List<movies> getListMoviesForLaunchYear(String filter){
+        return data.getListMoviesForLaunchYear(filter);
     }
 
     public Optional<movies> findById(int id){
@@ -105,7 +114,8 @@ public class moviesService {
             moviesDTO.getTitle(),
             moviesDTO.getDescription(),
             moviesDTO.getTime_min(),
-            moviesDTO.getLaunch_year()
+            moviesDTO.getLaunch_year(),
+            true
         );
         return movies;
     }

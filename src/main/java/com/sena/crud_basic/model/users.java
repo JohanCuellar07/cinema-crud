@@ -27,7 +27,7 @@ public class users {
     private String email;
 
     @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
-   private boolean status;
+    private boolean status;
 
     public users(){}
 

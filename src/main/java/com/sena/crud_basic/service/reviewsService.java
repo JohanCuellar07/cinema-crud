@@ -19,7 +19,20 @@ public class reviewsService {
     private Ireviews data;
 
     public List<reviews> findAll(){
-        return data.findAll();
+        //return data.findAll();
+        return data.getListReviewsActive();
+    }
+
+    public List<reviews> getListReviewsForMovie(String filter){
+        return data.getListReviewsForMovie(filter);
+    }
+
+    public List<reviews> getListReviewsForUser(String filter){
+        return data.getListReviewsForUser(filter);
+    }
+
+    public List<reviews> getListReviewsForRating(String filter){
+        return data.getListReviewsForRating(filter);
     }
 
     public Optional<reviews> findById(int id){
@@ -97,7 +110,8 @@ public class reviewsService {
             reviewsDTO.getMovie_id(),
             reviewsDTO.getUser_id(),
             reviewsDTO.getRating(),
-            reviewsDTO.getComment()
+            reviewsDTO.getComment(),
+            true
         );
         return reviews;
     }

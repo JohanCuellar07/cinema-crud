@@ -30,14 +30,18 @@ public class reviews {
     @Column(name = "comment", length = 150)
     private String comment;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     public reviews(){}
 
-    public reviews(int id, movies movie, users user, int rating, String comment){
+    public reviews(int id, movies movie, users user, int rating, String comment, boolean status){
         this.id = id;
         this.movie = movie;
         this.user = user;
         this.rating = rating;
         this.comment = comment;
+        this.status = status;
     }
 
     public int getId(){
@@ -78,5 +82,13 @@ public class reviews {
 
     public void setComment(String comment){
         this.comment = comment;
+    }
+
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }

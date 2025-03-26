@@ -29,14 +29,18 @@ public class rooms {
     @Column(name = "type", length = 30)
     private String type;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     public rooms(){}
 
-    public rooms(int id, cinemas cinema, String num_room, int capacity, String type){
+    public rooms(int id, cinemas cinema, String num_room, int capacity, String type, boolean status){
         this.id = id;
         this.cinema = cinema;
         this.num_room = num_room;
         this.capacity = capacity;
         this.type = type;
+        this.status = status;
     }
 
     public int getId(){
@@ -77,5 +81,13 @@ public class rooms {
 
     public void setType(String type){
         this.type = type;
+    }
+
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }

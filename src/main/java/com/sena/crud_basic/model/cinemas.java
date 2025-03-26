@@ -23,13 +23,17 @@ public class cinemas {
     @Column(name = "phone", length = 10)
     private String phone;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     public cinemas(){}
 
-    public cinemas(int id, String name, String address, String phone) {
+    public cinemas(int id, String name, String address, String phone, boolean status) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.status = status;
     }
 
     public int getId(){
@@ -62,5 +66,13 @@ public class cinemas {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }

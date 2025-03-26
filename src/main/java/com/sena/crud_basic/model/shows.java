@@ -32,14 +32,18 @@ public class shows {
     @Column(name = "price", nullable = false)
     private int price;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     public shows(){}
 
-    public shows(int id, movies movie, LocalDate date, LocalTime time, int price){
+    public shows(int id, movies movie, LocalDate date, LocalTime time, int price, boolean status){
         this.id = id;
         this.movie = movie;
         this.date = date;
         this.time = time;
         this.price = price;
+        this.status = status;
     }
 
     public int getId(){
@@ -80,5 +84,13 @@ public class shows {
 
     public void setPrice(int price){
         this.price = price;
+    }
+
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }

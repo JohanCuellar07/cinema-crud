@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
 @RequestMapping("/genres")
 public class genresController {
@@ -42,6 +41,13 @@ public class genresController {
         }
         return new ResponseEntity<>(genero, HttpStatus.OK);
     }
+
+    @GetMapping("/filter/name/{filter}")
+    public ResponseEntity<Object> getListGenresForName(@PathVariable String filter) {
+        var genresList = genresService.getListGenresForName(filter);
+        return new ResponseEntity<>(genresList, HttpStatus.OK);
+    }
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteGenre(@PathVariable int id){

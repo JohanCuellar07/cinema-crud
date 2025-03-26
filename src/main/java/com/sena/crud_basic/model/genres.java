@@ -20,12 +20,16 @@ public class genres {
     @Column(name = "description", length = 200)
     private String description;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+   private boolean status;
+
     public genres(){}
 
-    public genres(int id, String name, String description){
+    public genres(int id, String name, String description, boolean status){
         this.id = id;
         this.name = name;
         this.description = description;
+        this.status = status;
     }
 
     public int getId(){
@@ -50,5 +54,13 @@ public class genres {
 
     public void setDescription(String description){
         this.description = description;
+    }
+        
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }
