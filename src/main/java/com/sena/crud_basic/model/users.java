@@ -26,13 +26,17 @@ public class users {
     @Column(name = "email", length = 100)
     private String email;
 
+    @Column(name="status",nullable =false, columnDefinition = "boolean default true ")
+   private boolean status;
+
     public users(){}
 
-    public users(int id, String name, String last_name, String phone, String email){
+    public users(int id, String name, String last_name, String phone, String email, boolean status){
         this.name = name;
         this.last_name = last_name;
         this.phone = phone;
         this.email = email;
+        this.status = status;
     }
 
     public int getId(){
@@ -73,5 +77,13 @@ public class users {
 
     public void setEmail(String email){
         this.email = email;
+    }
+
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
     }
 }

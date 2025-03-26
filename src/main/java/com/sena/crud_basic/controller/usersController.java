@@ -45,6 +45,30 @@ public class usersController {
        }
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
+
+    @GetMapping("/filter/name/{filter}")
+    public ResponseEntity<Object> getListUsersForName(@PathVariable String filter) {
+        var usersList = usersService.getListUsersForName(filter);
+        return new ResponseEntity<>(usersList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/lastname/{filter}")
+    public ResponseEntity<Object> getListUsersForLastName(@PathVariable String filter) {
+        var usersList = usersService.getListUsersForLastName(filter);
+        return new ResponseEntity<>(usersList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/email/{filter}")
+    public ResponseEntity<Object> getListUsersForEmail(@PathVariable String filter) {
+        var usersList = usersService.getListUsersForEmail(filter);
+        return new ResponseEntity<>(usersList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/phone/{filter}")
+    public ResponseEntity<Object> getListUsersForPhone(@PathVariable String filter) {
+        var usersList = usersService.getListUsersForPhone(filter);
+        return new ResponseEntity<>(usersList, HttpStatus.OK);
+    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable int id){

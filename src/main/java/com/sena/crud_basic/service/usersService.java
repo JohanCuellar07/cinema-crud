@@ -17,7 +17,25 @@ public class usersService {
     private Iusers data;
 
     public List<users> findAll(){
-        return data.findAll();
+        //return data.findAll();
+        return data.getListUsersActive();
+    }
+
+    public List<users> getListUsersForName(String filter){
+        //return data.findAll();
+        return data.getListUsersForName(filter);
+    }
+
+    public List<users> getListUsersForLastName(String filter){
+        return data.getListUsersForLastName(filter);
+    }
+
+    public List<users> getListUsersForEmail(String filter){
+        return data.getListUsersForEmail(filter);
+    }
+
+    public List<users> getListUsersForPhone(String filter){
+        return data.getListUsersForPhone(filter);
     }
 
     public Optional<users> findById(int id){
@@ -94,7 +112,8 @@ public class usersService {
             usersDTO.getName(),
             usersDTO.getLastName(),
             usersDTO.getPhone(),
-            usersDTO.getEmail()
+            usersDTO.getEmail(),
+            true
         );
         return users;
     }
