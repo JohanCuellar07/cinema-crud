@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,12 @@ public class roomsController {
     @PostMapping("/")
     public ResponseEntity<Object> registerRooms(@RequestBody roomsDTO rooms){
         responseDTO respuesta = roomsService.save(rooms);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateRooms(@PathVariable int id, @RequestBody roomsDTO dto) {
+        responseDTO respuesta = roomsService.updateRooms(id, dto);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 

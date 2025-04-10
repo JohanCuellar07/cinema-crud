@@ -9,12 +9,15 @@ import com.sena.crud_basic.DTO.moviesDTO;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.service.moviesService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/movies")
 public class moviesController {
     /*
@@ -29,6 +32,12 @@ public class moviesController {
     @PostMapping("/")
     public ResponseEntity<Object> registerMovies(@RequestBody moviesDTO movies) {
         responseDTO respuesta = moviesService.save(movies);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateMovies(@PathVariable int id, @RequestBody moviesDTO dto) {
+        responseDTO respuesta = moviesService.updateMovies(id, dto);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
     

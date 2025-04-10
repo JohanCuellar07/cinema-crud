@@ -18,6 +18,9 @@ public class movies {
     @Column(name = "title", length = 50, nullable = false)
     private String title;
 
+    @Column(name = "url_image", length = 200, nullable = false)
+    private String url_image;
+
     @Column(name = "description", length = 200)
     private String description;
 
@@ -32,9 +35,10 @@ public class movies {
 
     public movies(){}
 
-    public movies(int id, String title, String description, int time_min, LocalDate launch_year, boolean status) {
+    public movies(int id, String title, String url_image, String description, int time_min, LocalDate launch_year, boolean status) {
         this.id = id;
         this.title = title;
+        this.url_image = url_image;
         this.description = description;
         this.time_min = time_min;
         this.launch_year = launch_year;
@@ -55,6 +59,14 @@ public class movies {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUrlImage(){
+        return url_image;
+    }
+
+    public void setUrlImage(String url_image){
+        this.url_image = url_image;
     }
 
     public String getDescription(){

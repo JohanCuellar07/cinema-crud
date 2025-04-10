@@ -82,6 +82,28 @@ public class roomsService {
         return respuesta;
     }
 
+    public responseDTO updateRooms(int id, roomsDTO dto){
+        Optional<rooms> roomsOpt = data.findById(id);
+        if (!roomsOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        rooms existingRooms = roomsOpt.get();
+        existingRooms.setCinema_id(dto.getCinema_id());
+        existingRooms.setNum_room(dto.getNum_room());
+        existingRooms.setCapacity(dto.getCapacity());
+        existingRooms.setType(dto.getType());
+        data.save(existingRooms);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
+        );
+        return respuesta;
+    }
+
     public roomsDTO converToDTO(rooms rooms){
         roomsDTO roomsDTO = new roomsDTO(
             rooms.getCinema_id(),

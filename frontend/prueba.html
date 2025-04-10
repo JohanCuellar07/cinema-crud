@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .slider-container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .movie-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .movie-card {
+            width: 250px;
+            margin: 0 10px;
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .movie-poster {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .movie-info {
+            padding: 15px;
+        }
+        .movie-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .movie-rating {
+            color: gold;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 10;
+        }
+        .prev {
+            left: 0;
+        }
+        .next {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <button class="slider-btn prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <div class="movie-slider" id="movieSlider">
+            <div class="movie-card">
+                <img src="https://via.placeholder.com/250x350" class="movie-poster">
+                <div class="movie-info">
+                    <div class="movie-title">Movie 1</div>
+                    <div class="movie-rating"><i class="fas fa-star"></i> 8.5</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="https://via.placeholder.com/250x350" class="movie-poster">
+                <div class="movie-info">
+                    <div class="movie-title">Movie 2</div>
+                    <div class="movie-rating"><i class="fas fa-star"></i> 7.9</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="https://via.placeholder.com/250x350" class="movie-poster">
+                <div class="movie-info">
+                    <div class="movie-title">Movie 3</div>
+                    <div class="movie-rating"><i class="fas fa-star"></i> 9.0</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="https://via.placeholder.com/250x350" class="movie-poster">
+                <div class="movie-info">
+                    <div class="movie-title">Movie 4</div>
+                    <div class="movie-rating"><i class="fas fa-star"></i> 8.2</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="https://via.placeholder.com/250x350" class="movie-poster">
+                <div class="movie-info">
+                    <div class="movie-title">Movie 5</div>
+                    <div class="movie-rating"><i class="fas fa-star"></i> 7.5</div>
+                </div>
+            </div>
+        </div>
+        <button class="slider-btn next" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        let index = 0;
+        function moveSlide(step) {
+            const slider = document.getElementById("movieSlider");
+            const cardWidth = document.querySelector(".movie-card").offsetWidth + 20; // Incluye márgenes
+            const visibleMovies = Math.floor(document.querySelector(".slider-container").offsetWidth / cardWidth);
+            const maxIndex = document.querySelectorAll(".movie-card").length - visibleMovies;
+            index = Math.max(0, Math.min(index + step, maxIndex));
+            slider.style.transform = `translateX(${-index * cardWidth}px)`;
+        }
+    </script>
+</body>
+</html>

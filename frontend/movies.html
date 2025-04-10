@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/images/Designer.jpeg">
+    <title>Document</title>
+</head>
+<body onload="getMovies();">
+    <section class="navbar">
+        <div class="navbar-left">
+            <div class="menu menu-button" onclick="toggleMenu()"></div>
+            <div class="title" onclick="window.location.href='index.html'">RetroVision</div>
+        </div>
+    
+        <div class="nav-links">
+            <div class="cinema crud" onclick="window.location.href='cinemas.html'">Cinemas</div>
+            <div class="movie crud active" onclick="window.location.href='movies.html'">Movies</div>
+            <div class="genre crud" onclick="window.location.href='genres.html'">Genres</div>
+            <div class="user crud" onclick="window.location.href='users.html'">Users</div>
+            <div class="review crud" onclick="window.location.href='reviews.html'">Reviews</div>
+            <div class="room crud" onclick="window.location.href='rooms.html'">Rooms</div>
+            <div class="show crud" onclick="window.location.href='shows.html'">Shows</div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="title title-title" onclick="window.location.href='movies.html'">
+            <h1>Movies</h1>
+        </div>
+
+        <div class="form-wrapper">
+            <form>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title">
+
+                <label for="url_image">Url image:</label>
+                <input type="text" id="url_image" name="url_image">
+
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description">
+
+                <label for="generos">Genres:</label>
+                <select id="generos" name="generos[]" multiple required></select>
+
+                <label for="time_min">Time min:</label>
+                <input type="text" id="time_min" name="time_min">
+
+                <label for="launch_year">Launch year:</label>
+                <input type="date" id="launch_year" name="launch_year">
+
+                <button onclick="registerMovie()" type="button">Save</button>
+            </form>
+        </div>
+        <div class="filter-bar">
+            <select id="filterType">
+                <option value="">All Movies</option>
+                <option value="title">Title</option>
+            </select>
+        
+            <input type="text" id="nameFilter" placeholder="Enter value to filter..." />
+        
+            <button onclick="getMovies()" class="btn-filter">Filter</button>
+        </div>
+        <div id="listMovies" class="movie-grid"></div>
+    </section>
+    
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Update Movie</h2>
+      
+            <label for="update-title">Title:</label>
+            <input type="text" id="update-title" name="title">
+
+            <label for="update-url_image">Url image:</label>
+            <input type="text" id="update-url_image" name="url_image">
+
+            <label for="update-description">Description:</label>
+            <input type="text" id="update-description" name="description">
+
+            <label for="update-time_min">Time min:</label>
+            <input type="text" id="update-time_min" name="time_min">
+
+            <label for="update-launch_year">Launch year:</label>
+            <input type="date" id="update-launch_year" name="launch_year">
+        
+            <button onclick="submitUpdate()">Save Changes</button>
+        </div>
+    </div>
+    <script src="./assets/js/movies.js"></script>
+    <script src="assets/js/menu.js"></script>
+    
+</body>
+</html>

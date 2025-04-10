@@ -10,6 +10,7 @@ import com.sena.crud_basic.DTO.genresDTO;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.service.genresService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,12 @@ public class genresController {
     @PostMapping("/")
     public ResponseEntity<Object> registerGenres(@RequestBody genresDTO genres){
         responseDTO respuesta = genresService.save(genres);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateGenres(@PathVariable int id, @RequestBody genresDTO dto) {
+        responseDTO respuesta = genresService.updateGenres(id, dto);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 

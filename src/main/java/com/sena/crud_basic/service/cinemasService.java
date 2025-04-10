@@ -86,6 +86,27 @@ public class cinemasService {
         return respuesta;
     }
 
+    public responseDTO updateCinemas(int id, cinemasDTO dto){
+        Optional<cinemas> cinemasOpt = data.findById(id);
+        if (!cinemasOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        cinemas existingCinemas = cinemasOpt.get();
+        existingCinemas.setName(dto.getName());
+        existingCinemas.setAddress(dto.getAddress());
+        existingCinemas.setPhone(dto.getPhone());
+        data.save(existingCinemas);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
+        );
+        return respuesta;
+    }
+
     public cinemasDTO converToDTO(cinemas cinemas){
         cinemasDTO cinemasDTO = new cinemasDTO(
             cinemas.getName(),

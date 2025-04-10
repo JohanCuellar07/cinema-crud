@@ -67,10 +67,18 @@ public class moviesService {
             );
             return respuesta;
         }
+        if (moviesDTO.getUrlImage().length() < 1 || moviesDTO.getUrlImage().length() > 200) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(),
+                "The url_image cannot be empty or exceed 200 characters"
+            );
+            return respuesta;
+            
+        }
         if (moviesDTO.getDescription().length() > 200) {
             responseDTO respuesta = new responseDTO(
-                null, 
-                null
+                HttpStatus.BAD_REQUEST.toString(),
+                "The description cannot exceed 200 characters"
             );
             return respuesta;
         }
@@ -99,9 +107,33 @@ public class moviesService {
         return respuesta;
     }
 
+    public responseDTO updateMovies(int id, moviesDTO dto){
+        Optional<movies> moviesOpt = data.findById(id);
+        if (!moviesOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        movies existingMovies = moviesOpt.get();
+        existingMovies.setTitle(dto.getTitle());
+        existingMovies.setUrlImage(dto.getUrlImage());
+        existingMovies.setDescription(dto.getDescription());
+        existingMovies.setTime_min(dto.getTime_min());
+        existingMovies.setLaunch_year(dto.getLaunch_year());
+        data.save(existingMovies);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
+        );
+        return respuesta;
+    }
+
     public moviesDTO converToDTO(movies movies){
         moviesDTO moviesDTO = new moviesDTO(
             movies.getTitle(),
+            movies.getUrlImage(),
             movies.getDescription(),
             movies.getTime_min(),
             movies.getLaunch_year()
@@ -113,6 +145,7 @@ public class moviesService {
         movies movies = new movies(
            0,
             moviesDTO.getTitle(),
+            moviesDTO.getUrlImage(),
             moviesDTO.getDescription(),
             moviesDTO.getTime_min(),
             moviesDTO.getLaunch_year(),

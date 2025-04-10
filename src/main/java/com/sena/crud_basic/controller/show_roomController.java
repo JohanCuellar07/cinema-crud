@@ -6,9 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.DTO.show_roomDTO;
 import com.sena.crud_basic.service.show_roomService;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -20,8 +25,19 @@ public class show_roomController {
 
     @PostMapping("/")
     public ResponseEntity<Object> registerShow_Room(@RequestBody show_roomDTO show_room) {
-        show_roomService.save(show_room);
-        return new ResponseEntity<>("register OK", HttpStatus.OK);
+        responseDTO respuesta = show_roomService.save(show_room);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateShow_Room(@PathVariable int id, @RequestBody show_roomDTO dto) {
+        responseDTO respuesta = show_roomService.updateShow_Room(id, dto);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
     
+    @GetMapping("/")
+    public ResponseEntity<Object> getAllShow_Room(){
+        var listaFuncionesSalas = show_roomService.findAll();
+        return new ResponseEntity<>(listaFuncionesSalas, HttpStatus.OK);
+    }
 }

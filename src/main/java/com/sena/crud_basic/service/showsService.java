@@ -81,6 +81,28 @@ public class showsService {
         return respuesta;
     }
 
+    public responseDTO updateShows(int id, showsDTO dto){
+        Optional<shows> showsOpt = data.findById(id);
+        if (!showsOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        shows existingShows = showsOpt.get();
+        existingShows.setMovie_id(dto.getMovie_id());
+        existingShows.setDate(dto.getDate());
+        existingShows.setTime(dto.getTime());
+        existingShows.setPrice(dto.getPrice());
+        data.save(existingShows);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
+        );
+        return respuesta;
+    }
+
     public showsDTO converToDTO(shows shows){
         showsDTO showsDTO = new showsDTO(
             shows.getMovie_id(),

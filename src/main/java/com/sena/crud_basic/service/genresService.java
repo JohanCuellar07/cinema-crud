@@ -71,6 +71,26 @@ public class genresService {
         return respuesta;
     }
 
+    public responseDTO updateGenres(int id, genresDTO dto){
+        Optional<genres> genresOpt = data.findById(id);
+        if (!genresOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        genres existingGenres = genresOpt.get();
+        existingGenres.setName(dto.getName());
+        existingGenres.setDescription(dto.getDescription());
+        data.save(existingGenres);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
+        );
+        return respuesta;
+    }
+
     public genresDTO converToDTO(genres genres){
         genresDTO genresDTO = new genresDTO(
             genres.getName(),

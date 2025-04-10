@@ -94,6 +94,28 @@ public class reviewsService {
         return respuesta;
     }
 
+    public responseDTO updateReviews(int id, reviewsDTO dto){
+        Optional<reviews> reviewsOpt = data.findById(id);
+        if (!reviewsOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        reviews existingReviews = reviewsOpt.get();
+        existingReviews.setMovie_id(dto.getMovie_id());
+        existingReviews.setUser_id(dto.getUser_id());
+        existingReviews.setRating(dto.getRating());
+        existingReviews.setComment(dto.getComment());
+        data.save(existingReviews);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
+        );
+        return respuesta;
+    }
+
     public reviewsDTO converToDTO(reviews reviews){
         reviewsDTO reviewsDTO = new reviewsDTO(
             reviews.getMovie_id(), 

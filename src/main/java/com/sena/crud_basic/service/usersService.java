@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.DTO.usersDTO;
 import com.sena.crud_basic.model.users;
@@ -92,6 +93,28 @@ public class usersService {
         responseDTO respuesta = new responseDTO(
             HttpStatus.OK.toString(), 
             "Was successfully saved"
+        );
+        return respuesta;
+    }
+
+    public responseDTO updateUsers(int id, usersDTO dto){
+        Optional<users> usersOpt = data.findById(id);
+        if (!usersOpt.isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        users existingUsers = usersOpt.get();
+        existingUsers.setName(dto.getName());
+        existingUsers.setLastName(dto.getLastName());
+        existingUsers.setPhone(dto.getPhone());
+        existingUsers.setEmail(dto.getEmail());
+        data.save(existingUsers);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully updated"
         );
         return respuesta;
     }

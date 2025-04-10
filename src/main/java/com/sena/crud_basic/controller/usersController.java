@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.DTO.usersDTO;
 import com.sena.crud_basic.service.usersService;
@@ -24,6 +26,12 @@ public class usersController {
     @PostMapping("/")
     public ResponseEntity<Object> registerUsers(@RequestBody usersDTO users){
         responseDTO respuesta = usersService.save(users);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUsers(@PathVariable int id, @RequestBody usersDTO dto) {
+        responseDTO respuesta = usersService.updateUsers(id, dto);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 

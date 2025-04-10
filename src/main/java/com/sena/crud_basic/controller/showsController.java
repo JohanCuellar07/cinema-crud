@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,12 @@ public class showsController {
     @PostMapping("/")
     public ResponseEntity<Object> registerShows(@RequestBody showsDTO shows){
         responseDTO respuesta = showsService.save(shows);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateShows(@PathVariable int id, @RequestBody showsDTO dto) {
+        responseDTO respuesta = showsService.updateShows(id, dto);
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 
