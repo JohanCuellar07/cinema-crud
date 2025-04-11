@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="assets/images/Designer.jpeg">
-    <title>Genres</title>
+    <title>Platforms</title>
 </head>
-<body onload="getGenres();">
+<body onload="getPlatforms();">
     <section class="navbar">
         <div class="navbar-left">
             <div class="menu menu-button" onclick="toggleMenu()"></div>
@@ -16,17 +16,17 @@
     
         <div class="nav-links">
             <div class="movie crud" onclick="window.location.href='movies.html'">Movies</div>
-            <div class="genre crud active" onclick="window.location.href='genres.html'">Genres</div>
+            <div class="genre crud" onclick="window.location.href='genres.html'">Genres</div>
             <div class="review crud" onclick="window.location.href='reviews.html'">Reviews</div>
             <div class="actor crud" onclick="window.location.href='actors.html'">Actors</div>
             <div class="directors crud" onclick="window.location.href='directors.html'">Directors</div>
-            <div class="platforms crud" onclick="window.location.href='platforms.html'">Platforms</div>
+            <div class="platforms crud active" onclick="window.location.href='platforms.html'">Platforms</div>
         </div>
     </section>
 
     <section class="container">
-        <div class="title title-title" onclick="window.location.href='genres.html'">
-            <h1>Genres</h1>
+        <div class="title title-title" onclick="window.location.href='platforms.html'">
+            <h1>Platforms</h1>
         </div>
 
         <div class="form-wrapper">
@@ -34,39 +34,40 @@
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name">
 
-                <label for="description">Description:</label>
-                <input type="text" id="description" name="description">
+                <label for="url_web">Url Web:</label>
+                <input type="text" id="url_web" name="url_web">
 
-                <button onclick="registerGenre()" type="button">Save</button>
+                <button onclick="registerPlatform()" type="button">Save</button>
             </form>
         </div>
         <div class="filter-bar">
             <select id="filterType">
-                <option value="">All Genres</option>
+                <option value="">All Movies</option>
                 <option value="name">Name</option>
             </select>
         
             <input type="text" id="nameFilter" placeholder="Enter value to filter..." />
         
-            <button onclick="getGenres()" class="btn-filter">Filter</button>
+            <button onclick="getPlatforms()" class="btn-filter">Filter</button>
         </div>
-        <div id="listGenres" class="movie-grid"></div>
+        <div id="listPlatforms" class="movie-grid"></div>
     </section>
+    
     <div id="updateModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Update Genre</h2>
-      
+            <h2>Update Platform</h2>
+
             <label for="update-name">Name:</label>
             <input type="text" id="update-name" name="name">
 
-            <label for="update-description">Description:</label>
-            <input type="text" id="update-description" name="description">
+            <label for="update-url_web">Url Web:</label>
+            <input type="text" id="update-url_web" name="url_web">
         
             <button onclick="submitUpdate()">Save Changes</button>
         </div>
     </div>
-    <script src="./assets/js/genres.js"></script>
+    <script src="./assets/js/platforms.js"></script>
     <script src="assets/js/menu.js"></script>
 </body>
 </html>

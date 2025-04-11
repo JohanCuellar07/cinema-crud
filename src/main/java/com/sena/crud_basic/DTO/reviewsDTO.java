@@ -1,21 +1,20 @@
 package com.sena.crud_basic.DTO;
 
 import com.sena.crud_basic.model.movies;
-import com.sena.crud_basic.model.users;
 
 public class reviewsDTO {
 
     private movies movie;
 
-    private users user;
+    private String name_reviewer;
 
     private int rating;
 
     private String comment;
 
-    public reviewsDTO(movies movie, users user, int rating, String comment){
+    public reviewsDTO(movies movie, String name_reviewer, int rating, String comment){
         this.movie = movie;
-        this.user = user;
+        this.name_reviewer = name_reviewer;
         this.rating = rating;
         this.comment = comment;
     }
@@ -28,12 +27,12 @@ public class reviewsDTO {
         this.movie = movie;
     }
 
-    public users getUser_id(){
-        return user;
+    public String getNameReviewer(){
+        return name_reviewer;
     }
 
-    public void setUser_id(users user){
-        this.user = user;
+    public void setNameReviewer(String name_reviewer){
+        this.name_reviewer = name_reviewer;
     }
 
     public int getRating(){

@@ -22,6 +22,10 @@ public class reviewsService {
         //return data.findAll();
         return data.getListReviewsActive();
     }
+
+    public List<reviews> getListReviewsForName(String filter){
+        return data.getListReviewsForName(filter);
+    }
     /* 
     public List<reviews> getListReviewsForMovie(String filter){
         return data.getListReviewsForMovie(filter);
@@ -64,10 +68,10 @@ public class reviewsService {
             );
             return respuesta;
         }
-        if (reviewsDTO.getUser_id() == null) {
+        if (reviewsDTO.getNameReviewer().length() < 1 || reviewsDTO.getNameReviewer().length() > 50) {
             responseDTO respuesta = new responseDTO(
                 HttpStatus.BAD_REQUEST.toString(), 
-                "The user_id cannot be empty"
+                "The name cannot be empty or exceed 50 characters"
             );
             return respuesta;
         }
@@ -105,7 +109,7 @@ public class reviewsService {
         }
         reviews existingReviews = reviewsOpt.get();
         existingReviews.setMovie_id(dto.getMovie_id());
-        existingReviews.setUser_id(dto.getUser_id());
+        existingReviews.setNameReviewer(dto.getNameReviewer());
         existingReviews.setRating(dto.getRating());
         existingReviews.setComment(dto.getComment());
         data.save(existingReviews);
@@ -119,7 +123,7 @@ public class reviewsService {
     public reviewsDTO converToDTO(reviews reviews){
         reviewsDTO reviewsDTO = new reviewsDTO(
             reviews.getMovie_id(), 
-            reviews.getUser_id(), 
+            reviews.getNameReviewer(), 
             reviews.getRating(), 
             reviews.getComment()
         );
@@ -131,7 +135,7 @@ public class reviewsService {
         reviews reviews = new reviews(
             0,
             reviewsDTO.getMovie_id(),
-            reviewsDTO.getUser_id(),
+            reviewsDTO.getNameReviewer(),
             reviewsDTO.getRating(),
             reviewsDTO.getComment(),
             true

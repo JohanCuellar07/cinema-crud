@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="assets/images/Designer.jpeg">
-    <title>Document</title>
+    <title>Reviews</title>
 </head>
 <body onload="getReviews();">
     <section class="navbar">
@@ -15,13 +17,12 @@
         </div>
     
         <div class="nav-links">
-            <div class="cinema crud" onclick="window.location.href='cinemas.html'">Cinemas</div>
             <div class="movie crud" onclick="window.location.href='movies.html'">Movies</div>
             <div class="genre crud" onclick="window.location.href='genres.html'">Genres</div>
-            <div class="user crud" onclick="window.location.href='users.html'">Users</div>
             <div class="review crud active" onclick="window.location.href='reviews.html'">Reviews</div>
-            <div class="room crud" onclick="window.location.href='rooms.html'">Rooms</div>
-            <div class="show crud" onclick="window.location.href='shows.html'">Shows</div>
+            <div class="actor crud" onclick="window.location.href='actors.html'">Actors</div>
+            <div class="directors crud" onclick="window.location.href='directors.html'">Directors</div>
+            <div class="platforms crud" onclick="window.location.href='platforms.html'">Platforms</div>
         </div>
     </section>
 
@@ -32,8 +33,17 @@
 
         <div class="form-wrapper">
             <form>
-                <label for="review">Review:</label>
-                <input type="text" id="review" name="review">
+                <label for="movie_id">Movie ID:</label>
+                <select type="text" id="movie_id" name="movie_id"></select>
+
+                <label for="name_reviewer">Name reviewer:</label>
+                <input type="text" id="name_reviewer" name="name_reviewer" required>
+                
+                <label for="rating">Rating:</label>
+                <input type="text" id="rating" name="rating">
+
+                <label for="comment">Comment:</label>
+                <input type="text" id="comment" name="comment">
 
                 <button onclick="registerReview()" type="button">Save</button>
             </form>

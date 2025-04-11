@@ -1,18 +1,20 @@
-function registerGenre() {
+function registerActor() {
     return new Promise (async (resolve) => {
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
-            "Content-Type": "application/json"        
+            "Content-Type": "application/json"
         }
 
         let bodyContent = JSON.stringify({
             "id": 0,
             "name": document.getElementById("name").value,
-            "description": document.getElementById("description").value
+            "url_image": document.getElementById("url_image").value,
+            "birth": document.getElementById("birth").value,
+            "nationality": document.getElementById("nationality").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/genres/", {
+        let response = await fetch("http://172.30.2.74:8085/actors/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
@@ -20,13 +22,13 @@ function registerGenre() {
 
         let data = await response.text();
         console.log(data);
-        getGenres();
+        getActors();
     });
 }
 
-function getGenres(){
+function getActors(){
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/genres/";
+        var url = "http://172.30.2.74:8085/actors/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -46,10 +48,10 @@ function getGenres(){
         });
 
         let data = await response.json();
-        var container = document.getElementById("listGenres");
+        var container = document.getElementById("listActors");
         container.innerHTML = "";
-        data.forEach(genre => {
-            console.log(genre);
+        data.forEach(actor => {
+            console.log(actor);
 
             let col = document.createElement("div");
             col.className = "col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center";
@@ -58,6 +60,17 @@ function getGenres(){
             let card = document.createElement("div");
             card.className = "movie-card";
 
+            // Imagen
+            let imageContainer = document.createElement("div");
+            imageContainer.className = "movie-image";
+
+            let image = document.createElement("img");
+            image.src = actor["urlImage"];
+            image.alt = "Imagen del actor o actriz";
+            image.id = "card-image";
+
+            imageContainer.appendChild(image);
+
             // Contenido
             let content = document.createElement("div");
             content.className = "movie-content";
@@ -65,12 +78,16 @@ function getGenres(){
             let title = document.createElement("div");
             title.className = "movie-title";
             title.id = "card-title";
-            title.innerText = genre["name"];
+            title.innerText = actor["name"];
+
+            let info = document.createElement("div");
+            info.className = "movie-info";
+            info.innerHTML = `<span id="card-year">${actor["birth"]}</span> • <span id="card-time">${actor["nationality"]}</span>`;
 
             let description = document.createElement("div");
             description.className = "movie-description";
             description.id = "card-description";
-            description.innerText = genre["description"];
+            //description.innerText = actor["biography"];
 
             // Botones
             let buttonContainer = document.createElement("div");
@@ -78,12 +95,12 @@ function getGenres(){
 
             let btnEdit = document.createElement("button");
             btnEdit.className = "btn-edit";
-            btnEdit.setAttribute("onclick", "openModal(" + genre.id + ")");
+            btnEdit.setAttribute("onclick", "openModal(" + actor.id + ")");
             btnEdit.innerText = "Editar";
 
             let btnDelete = document.createElement("button");
             btnDelete.className = "btn-delete";
-            btnDelete.setAttribute("onclick", "deleteGenre(" + genre.id + ")");
+            btnDelete.setAttribute("onclick", "deleteMovie(" + actor.id + ")");
             btnDelete.innerText = "Eliminar";
 
             buttonContainer.appendChild(btnEdit);
@@ -91,9 +108,11 @@ function getGenres(){
 
             // Construir card
             content.appendChild(title);
+            content.appendChild(info);
             content.appendChild(description);
             content.appendChild(buttonContainer);
 
+            card.appendChild(imageContainer);
             card.appendChild(content);
             col.appendChild(card);
             container.appendChild(col);
@@ -101,11 +120,11 @@ function getGenres(){
     })
 }
 
-function deleteGenre(id) {
+function deleteActor(id) {
     return new Promise(async (resolve) => {
-        const confirmDelete = confirm("Are you sure you want to delete this genre?");
+        const confirmDelete = confirm("Are you sure you want to delete this actor?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/genres/${id}`;
+        var url = `http://172.30.2.74:8085/actors/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -120,20 +139,22 @@ function deleteGenre(id) {
 
         let data = await response.text();
         console.log(data);
-        getGenres();
+        getActors();
     })
 }
 
-let genreToUpdate = null;
+let actorToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/genres/${id}`)
+    fetch(`http://172.30.2.74:8085/actors/${id}`)
     .then(response => response.json())
-    .then(genre => {
-    genreToUpdate = genre;
+    .then(actor => {
+    actorToUpdate = actor;
 
-    document.getElementById("update-name").value = genre.name;
-    document.getElementById("update-description").value = genre.description;
+    document.getElementById("update-name").value = actor.name;
+    document.getElementById("update-url_image").value = actor.urlImage;
+    document.getElementById("update-birth").value = actor.birth;
+    document.getElementById("update-nationality").value = actor.nationality;
 
     document.getElementById("updateModal").style.display = "block";
     })
@@ -149,12 +170,14 @@ function closeModal() {
 
 function submitUpdate() {
     return new Promise(async (resolve) => {
-        const updatedGenre = {
+        const updatedActor = {
             name: document.getElementById("update-name").value,
-            description: document.getElementById("update-description").value
+            urlImage: document.getElementById("update-url_image").value,
+            birth: document.getElementById("update-birth").value,
+            nationality: document.getElementById("update-nationality").value
         };
         
-        var url = `http://172.30.2.74:8085/genres/${genreToUpdate.id}`;
+        var url = `http://172.30.2.74:8085/actors/${actorToUpdate.id}`;
         console.log(url);
         
         let headersList = {
@@ -165,7 +188,7 @@ function submitUpdate() {
     
         let response = await fetch(url, {
             method: "PUT",
-            body: JSON.stringify(updatedGenre),
+            body: JSON.stringify(updatedActor),
             headers: headersList
         });
 
@@ -173,11 +196,11 @@ function submitUpdate() {
         console.log(data);
     
         if (response.ok) {
-            console.log("Genre updated successfully!");
+            console.log("Actor updated successfully!");
             closeModal();
-            getGenres();
+            getActors();
         } else {
-            console.log("Error updating genre");
+            console.log("Error updating actor");
         }
     })
 }

@@ -20,9 +20,8 @@ public class reviews {
     @JoinColumn(name = "movie_id", nullable = false)
     private movies movie;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private users user;
+    @Column(name = "name_reviewer", length = 50)
+    private String name_reviewer;
 
     @Column(name = "rating", nullable = false)
     private int rating;
@@ -35,10 +34,10 @@ public class reviews {
 
     public reviews(){}
 
-    public reviews(int id, movies movie, users user, int rating, String comment, boolean status){
+    public reviews(int id, movies movie, String name_reviewer, int rating, String comment, boolean status){
         this.id = id;
         this.movie = movie;
-        this.user = user;
+        this.name_reviewer = name_reviewer;
         this.rating = rating;
         this.comment = comment;
         this.status = status;
@@ -60,12 +59,12 @@ public class reviews {
         this.movie = movie;
     }
 
-    public users getUser_id(){
-        return user;
+    public String getNameReviewer(){
+        return name_reviewer;
     }
 
-    public void setUser_id(users user){
-        this.user = user;
+    public void setNameReviewer(String name_reviewer){
+        this.name_reviewer = name_reviewer;
     }
 
     public int getRating(){

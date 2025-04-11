@@ -1,18 +1,18 @@
-function registerGenre() {
+function registerPlatform() {
     return new Promise (async (resolve) => {
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
-            "Content-Type": "application/json"        
+            "Content-Type": "application/json"
         }
 
         let bodyContent = JSON.stringify({
             "id": 0,
             "name": document.getElementById("name").value,
-            "description": document.getElementById("description").value
+            "url_web": document.getElementById("url_web").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/genres/", {
+        let response = await fetch("http://172.30.2.74:8085/platforms/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
@@ -20,13 +20,13 @@ function registerGenre() {
 
         let data = await response.text();
         console.log(data);
-        getGenres();
+        getPlatforms();
     });
 }
 
-function getGenres(){
+function getPlatforms(){
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/genres/";
+        var url = "http://172.30.2.74:8085/platforms/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -46,10 +46,10 @@ function getGenres(){
         });
 
         let data = await response.json();
-        var container = document.getElementById("listGenres");
+        var container = document.getElementById("listPlatforms");
         container.innerHTML = "";
-        data.forEach(genre => {
-            console.log(genre);
+        data.forEach(platform => {
+            console.log(platform);
 
             let col = document.createElement("div");
             col.className = "col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center";
@@ -65,12 +65,11 @@ function getGenres(){
             let title = document.createElement("div");
             title.className = "movie-title";
             title.id = "card-title";
-            title.innerText = genre["name"];
+            title.innerText = platform["name"];
 
-            let description = document.createElement("div");
-            description.className = "movie-description";
-            description.id = "card-description";
-            description.innerText = genre["description"];
+            let info = document.createElement("div");
+            info.className = "movie-info";
+            info.innerHTML = `<span id="card-year">${platform["urlWeb"]}</span>`;
 
             // Botones
             let buttonContainer = document.createElement("div");
@@ -78,12 +77,12 @@ function getGenres(){
 
             let btnEdit = document.createElement("button");
             btnEdit.className = "btn-edit";
-            btnEdit.setAttribute("onclick", "openModal(" + genre.id + ")");
+            btnEdit.setAttribute("onclick", "openModal(" + platform.id + ")");
             btnEdit.innerText = "Editar";
 
             let btnDelete = document.createElement("button");
             btnDelete.className = "btn-delete";
-            btnDelete.setAttribute("onclick", "deleteGenre(" + genre.id + ")");
+            btnDelete.setAttribute("onclick", "deleteMovie(" + platform.id + ")");
             btnDelete.innerText = "Eliminar";
 
             buttonContainer.appendChild(btnEdit);
@@ -91,7 +90,7 @@ function getGenres(){
 
             // Construir card
             content.appendChild(title);
-            content.appendChild(description);
+            content.appendChild(info);
             content.appendChild(buttonContainer);
 
             card.appendChild(content);
@@ -101,11 +100,11 @@ function getGenres(){
     })
 }
 
-function deleteGenre(id) {
+function deletePlatform(id) {
     return new Promise(async (resolve) => {
-        const confirmDelete = confirm("Are you sure you want to delete this genre?");
+        const confirmDelete = confirm("Are you sure you want to delete this platform?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/genres/${id}`;
+        var url = `http://172.30.2.74:8085/platforms/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -120,20 +119,20 @@ function deleteGenre(id) {
 
         let data = await response.text();
         console.log(data);
-        getGenres();
+        getPlatforms();
     })
 }
 
-let genreToUpdate = null;
+let platformToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/genres/${id}`)
+    fetch(`http://172.30.2.74:8085/platforms/${id}`)
     .then(response => response.json())
-    .then(genre => {
-    genreToUpdate = genre;
+    .then(platform => {
+    platformToUpdate = platform;
 
-    document.getElementById("update-name").value = genre.name;
-    document.getElementById("update-description").value = genre.description;
+    document.getElementById("update-name").value = platform.name;
+    document.getElementById("update-url_web").value = platform.url_web;
 
     document.getElementById("updateModal").style.display = "block";
     })
@@ -149,12 +148,12 @@ function closeModal() {
 
 function submitUpdate() {
     return new Promise(async (resolve) => {
-        const updatedGenre = {
+        const updatedPlatform = {
             name: document.getElementById("update-name").value,
-            description: document.getElementById("update-description").value
+            url_web: document.getElementById("update-url_web").value
         };
         
-        var url = `http://172.30.2.74:8085/genres/${genreToUpdate.id}`;
+        var url = `http://172.30.2.74:8085/platforms/${platformToUpdate.id}`;
         console.log(url);
         
         let headersList = {
@@ -165,7 +164,7 @@ function submitUpdate() {
     
         let response = await fetch(url, {
             method: "PUT",
-            body: JSON.stringify(updatedGenre),
+            body: JSON.stringify(updatedPlatform),
             headers: headersList
         });
 
@@ -173,11 +172,11 @@ function submitUpdate() {
         console.log(data);
     
         if (response.ok) {
-            console.log("Genre updated successfully!");
+            console.log("Platform updated successfully!");
             closeModal();
-            getGenres();
+            getPlatforms();
         } else {
-            console.log("Error updating genre");
-        }
+            console.log("Error updating platform");
+        }    
     })
 }
