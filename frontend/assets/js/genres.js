@@ -1,5 +1,26 @@
 function registerGenre() {
     return new Promise (async (resolve) => {
+
+        const name = document.getElementById("name").value.trim();
+        const description = document.getElementById("description").value.trim();
+    
+        // Validaciones
+        if (!name) {
+            alert("Todos los campos obligatorios deben ser completados.");
+            return;
+        }
+    
+        if (name.length > 50) {
+            alert("El nombre no puede tener más de 50 caracteres.");
+            return;
+        }
+    
+    
+        if (description.length > 200) {
+            alert("La descripción no puede tener más de 200 caracteres.");
+            return;
+        }
+
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
@@ -8,8 +29,8 @@ function registerGenre() {
 
         let bodyContent = JSON.stringify({
             "id": 0,
-            "name": document.getElementById("name").value,
-            "description": document.getElementById("description").value
+            "name": name,
+            "description": description
         });
 
         let response = await fetch("http://127.0.0.1:8085/genres/", {

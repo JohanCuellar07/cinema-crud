@@ -1,23 +1,68 @@
 function registerMovie() {
     return new Promise(async (resolve) => {
+        // Obtener valores
+        const title = document.getElementById("title").value.trim();
+        const urlImage = document.getElementById("url_image").value.trim();
+        const description = document.getElementById("description").value.trim();
+        const timeMin = document.getElementById("time_min").value.trim();
+        const launchYear = document.getElementById("launch_year").value.trim();
+        const selectedGenres = Array.from(document.getElementById("generos").selectedOptions).map(option => parseInt(option.value));
+
+        // Validaciones
+        if (!title || !urlImage || !timeMin || !launchYear) {
+            alert("Todos los campos obligatorios deben ser completados.");
+            return;
+        }
+
+        if (title.length > 50) {
+            alert("El título no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (urlImage.length > 200) {
+            alert("La URL de la imagen no puede tener más de 200 caracteres.");
+            return;
+        }
+
+        if (description.length > 200) {
+            alert("La descripción no puede tener más de 200 caracteres.");
+            return;
+        }
+
+        const today = new Date().toISOString().split('T')[0]; // Formato yyyy-mm-dd
+
+        if (launchYear > today) {
+            alert("Launch year cannot be in the future.");
+            return;
+        }
+
+        const parsedTime = parseInt(timeMin);
+        if (isNaN(parsedTime) || parsedTime <= 0) {
+            alert("El tiempo debe ser un número mayor a 0.");
+            return;
+        }
+
+        if (selectedGenres.length === 0) {
+            alert("Debes seleccionar al menos un género.");
+            return;
+        }
+
+        // Continuar con el registro si pasa todas las validaciones
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
             "Content-Type": "application/json"
         };
 
-        const selectedGenres = Array.from(document.getElementById("generos").selectedOptions).map(option => parseInt(option.value));
-
         let bodyContent = JSON.stringify({
             "id": 0,
-            "title": document.getElementById("title").value,
-            "url_image": document.getElementById("url_image").value,
-            "description": document.getElementById("description").value,
-            "time_min": document.getElementById("time_min").value,
-            "launch_year": document.getElementById("launch_year").value
+            "title": title,
+            "url_image": urlImage,
+            "description": description,
+            "time_min": parsedTime,
+            "launch_year": launchYear
         });
 
-        // Paso 1: Obtener lista de películas antes de insertar
         const beforeResponse = await fetch("http://127.0.0.1:8085/movies/", {
             method: "GET",
             headers: headersList
@@ -25,21 +70,17 @@ function registerMovie() {
         const beforeMovies = await beforeResponse.json();
         const beforeIds = beforeMovies.map(m => m.id);
 
-        // Paso 2: Crear la película
         await fetch("http://127.0.0.1:8085/movies/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
         });
 
-        // Paso 3: Obtener lista después de insertar
         const afterResponse = await fetch("http://127.0.0.1:8085/movies/", {
             method: "GET",
             headers: headersList
         });
         const afterMovies = await afterResponse.json();
-
-        // Paso 4: Buscar el nuevo ID
         const newMovie = afterMovies.find(m => !beforeIds.includes(m.id));
 
         if (!newMovie) {
@@ -49,7 +90,6 @@ function registerMovie() {
 
         const movieId = newMovie.id;
 
-        // Paso 5: Enlazar géneros
         for (const genreId of selectedGenres) {
             const movieGenreBody = JSON.stringify({
                 movie: { id: movieId },
@@ -167,15 +207,23 @@ function deleteMovie(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this movie?");
         if (!confirmDelete) return;
-        var url = `http://127.0.0.1:8085/movies/${id}`;
 
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
             "Content-Type": "application/json"
-        }
+        };
 
-        let response = await fetch(url, {
+        // 1. Eliminar relaciones en la tabla pivote
+        const movieGenreUrl = `http://127.0.0.1:8085/movie_genre/movie/${id}`;
+        await fetch(movieGenreUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
+        // 2. Eliminar la película
+        const movieUrl = `http://127.0.0.1:8085/movies/${id}`;
+        let response = await fetch(movieUrl, {
             method: "DELETE",
             headers: headersList
         });
@@ -183,7 +231,7 @@ function deleteMovie(id) {
         let data = await response.text();
         console.log(data);
         getMovies();
-    })
+    });
 }
 
 let movieToUpdate = null;

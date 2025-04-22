@@ -1,5 +1,32 @@
 function registerReview() {
     return new Promise (async (resolve) => {
+        
+        const movieId = {"id": parseInt(document.getElementById("movie_id").value)};
+        const nameReviewer = document.getElementById("name_reviewer").value.trim();
+        const rating = document.getElementById("rating").value.trim();
+        const comment = document.getElementById("comment").value.trim();
+
+        // Validaciones
+        if (!movieId || !nameReviewer || !rating || !comment) {
+            alert("Todos los campos obligatorios deben ser completados.");
+            return;
+        }
+
+        if (nameReviewer.length > 50) {
+            alert("El nombre del revisor no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (rating > 5) {
+            alert("La calificación no puede ser mayor a 5.");
+            return;
+        }
+
+        if (comment.length > 150) {
+            alert("El comentario no puede tener más de 150 caracteres.");
+            return;
+        }
+
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
@@ -7,10 +34,10 @@ function registerReview() {
         }
         let bodyContent = JSON.stringify({
             "id": 0,
-            "movie": {"id": parseInt(document.getElementById("movie_id").value)},
-            "name_reviewer": document.getElementById("name_reviewer").value,
-            "rating": document.getElementById("rating").value,
-            "comment": document.getElementById("comment").value
+            "movie": movieId,
+            "name_reviewer": nameReviewer,
+            "rating": rating,
+            "comment": comment
         });
         let response = await fetch("http://127.0.0.1:8085/reviews/", {
             method: "POST",

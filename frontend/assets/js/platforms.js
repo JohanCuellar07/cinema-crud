@@ -1,5 +1,25 @@
 function registerPlatform() {
     return new Promise (async (resolve) => {
+
+        const name = document.getElementById("name").value.trim();
+        const urlWeb = document.getElementById("url_web").value.trim();
+
+        // Validaciones
+        if (!name || !urlWeb) {
+            alert("El nombre y la URL son obligatorios.");
+            return;
+        }
+
+        if (name.length > 50) {
+            alert("El nombre no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (urlWeb.length > 200) {
+            alert("La URL no puede tener más de 200 caracteres.");
+            return;
+        }
+
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
@@ -8,8 +28,8 @@ function registerPlatform() {
 
         let bodyContent = JSON.stringify({
             "id": 0,
-            "name": document.getElementById("name").value,
-            "url_web": document.getElementById("url_web").value
+            "name": name,
+            "url_web": urlWeb
         });
 
         let response = await fetch("http://127.0.0.1:8085/platforms/", {
@@ -82,7 +102,7 @@ function getPlatforms(){
 
             let btnDelete = document.createElement("button");
             btnDelete.className = "btn-delete";
-            btnDelete.setAttribute("onclick", "deleteMovie(" + platform.id + ")");
+            btnDelete.setAttribute("onclick", "deletePlatform(" + platform.id + ")");
             btnDelete.innerText = "Eliminar";
 
             buttonContainer.appendChild(btnEdit);

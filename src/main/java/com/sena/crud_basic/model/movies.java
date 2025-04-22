@@ -24,10 +24,10 @@ public class movies {
     @Column(name = "description", length = 200)
     private String description;
 
-    @Column(name = "time_min")
+    @Column(name = "time_min", nullable = false)
     private int time_min;
 
-    @Column(name = "launch_year")
+    @Column(name = "launch_year", nullable = false)
     private LocalDate launch_year;
 
     @Column(name="status",nullable =false, columnDefinition = "boolean default true ")

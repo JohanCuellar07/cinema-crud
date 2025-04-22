@@ -10,19 +10,40 @@ import org.springframework.stereotype.Service;
 import com.sena.crud_basic.DTO.movie_genreDTO;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.model.movie_genre;
+import com.sena.crud_basic.model.movies;
 import com.sena.crud_basic.repository.Imovie_genre;
+import com.sena.crud_basic.repository.Imovies;
 
 @Service
 public class movie_genreService {
     @Autowired
     private Imovie_genre data;
 
-    public List<movie_genre> findAll(){
-        return data.findAll();
+    @Autowired
+    private Imovies moviesData;
+
+    public List<movies> findAll(){
+        return moviesData.findAll();
     }
 
-    public Optional<movie_genre> findById(int id){
-        return data.findById(id);
+    public Optional<movies> findById(int id){
+        return moviesData.findById(id);
+    }
+
+    public responseDTO deleteByMovieId(int id) {
+        if (!moviesData.findById(id).isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.OK.toString(), 
+                "The register does not exist"
+            );
+            return respuesta;
+        }
+        data.deleteById(id);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Was successfully deleted"
+        );
+        return respuesta;
     }
 
     public responseDTO save(movie_genreDTO movie_genreDTO){

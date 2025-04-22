@@ -34,10 +34,10 @@
         <div class="form-wrapper">
             <form>
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="title">
+                <input type="text" id="title" name="title" required>
 
                 <label for="url_image">Url image:</label>
-                <input type="text" id="url_image" name="url_image">
+                <input type="text" id="url_image" name="url_image" required>
 
                 <label for="description">Description:</label>
                 <input type="text" id="description" name="description">
@@ -46,10 +46,10 @@
                 <select id="generos" name="generos[]" multiple required></select>
 
                 <label for="time_min">Time min:</label>
-                <input type="text" id="time_min" name="time_min">
+                <input type="text" id="time_min" name="time_min" required>
 
                 <label for="launch_year">Launch year:</label>
-                <input type="date" id="launch_year" name="launch_year">
+                <input type="date" id="launch_year" name="launch_year" required>
 
                 <button onclick="registerMovie()" type="button">Save</button>
             </form>

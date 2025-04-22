@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sena.crud_basic.DTO.movie_genreDTO;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.service.movie_genreService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -36,5 +38,11 @@ public class movie_genreController {
     public ResponseEntity<Object> getAllMovie_Genre() {
         var listPeliculasGeneros = movie_genreService.findAll();
         return new ResponseEntity<>(listPeliculasGeneros, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/movie/{movieId}")
+    public ResponseEntity<Object> deleteByMovieId(@PathVariable int movieId) {
+        var message = movie_genreService.deleteByMovieId(movieId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

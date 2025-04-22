@@ -1,5 +1,39 @@
 function registerDirector() {
     return new Promise (async (resolve) => {
+
+        const name = document.getElementById("name").value.trim();
+        const urlImage = document.getElementById("url_image").value.trim();
+        const birth = document.getElementById("birth").value.trim();
+        const nationality = document.getElementById("nationality").value.trim();
+
+        // Validaciones
+        if (!name || !urlImage) {
+            alert("El nombre y la URL de la imagen son obligatorios.");
+            return;
+        }
+
+        if (name.length > 50) {
+            alert("El nombre no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (urlImage.length > 200) {
+            alert("La URL de la imagen no puede tener más de 200 caracteres.");
+            return;
+        }
+
+        const today = new Date().toISOString().split('T')[0]; // Formato yyyy-mm-dd
+
+        if (birth > today) {
+            alert("Birth date cannot be in the future.");
+            return;
+        }
+
+        if (nationality.length > 50) {
+            alert("La nacionalidad no puede tener más de 50 caracteres.");
+            return;
+        }
+
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
@@ -8,10 +42,10 @@ function registerDirector() {
 
         let bodyContent = JSON.stringify({
             "id": 0,
-            "name": document.getElementById("name").value,
-            "url_image": document.getElementById("url_image").value,
-            "birth": document.getElementById("birth").value,
-            "nationality": document.getElementById("nationality").value
+            "name": name,
+            "url_image": urlImage,
+            "birth": birth,
+            "nationality": nationality
         });
 
         let response = await fetch("http://127.0.0.1:8085/directors/", {
@@ -100,7 +134,7 @@ function getDirectors(){
 
             let btnDelete = document.createElement("button");
             btnDelete.className = "btn-delete";
-            btnDelete.setAttribute("onclick", "deleteMovie(" + director.id + ")");
+            btnDelete.setAttribute("onclick", "deleteDirector(" + director.id + ")");
             btnDelete.innerText = "Eliminar";
 
             buttonContainer.appendChild(btnEdit);
