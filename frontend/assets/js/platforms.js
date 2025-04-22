@@ -12,7 +12,7 @@ function registerPlatform() {
             "url_web": document.getElementById("url_web").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/platforms/", {
+        let response = await fetch("http://127.0.0.1:8085/platforms/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
@@ -26,7 +26,7 @@ function registerPlatform() {
 
 function getPlatforms(){
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/platforms/";
+        var url = "http://127.0.0.1:8085/platforms/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -104,7 +104,7 @@ function deletePlatform(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this platform?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/platforms/${id}`;
+        var url = `http://127.0.0.1:8085/platforms/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -126,13 +126,13 @@ function deletePlatform(id) {
 let platformToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/platforms/${id}`)
+    fetch(`http://127.0.0.1:8085/platforms/${id}`)
     .then(response => response.json())
     .then(platform => {
     platformToUpdate = platform;
 
     document.getElementById("update-name").value = platform.name;
-    document.getElementById("update-url_web").value = platform.url_web;
+    document.getElementById("update-url_web").value = platform.urlWeb;
 
     document.getElementById("updateModal").style.display = "block";
     })
@@ -153,7 +153,7 @@ function submitUpdate() {
             url_web: document.getElementById("update-url_web").value
         };
         
-        var url = `http://172.30.2.74:8085/platforms/${platformToUpdate.id}`;
+        var url = `http://127.0.0.1:8085/platforms/${platformToUpdate.id}`;
         console.log(url);
         
         let headersList = {

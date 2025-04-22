@@ -1,10 +1,10 @@
 function registerMovie() {
-    return new Promise (async (resolve) => {
+    return new Promise(async (resolve) => {
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
             "Content-Type": "application/json"
-        }
+        };
 
         const selectedGenres = Array.from(document.getElementById("generos").selectedOptions).map(option => parseInt(option.value));
 
@@ -17,29 +17,52 @@ function registerMovie() {
             "launch_year": document.getElementById("launch_year").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/movies/", {
+        // Paso 1: Obtener lista de películas antes de insertar
+        const beforeResponse = await fetch("http://127.0.0.1:8085/movies/", {
+            method: "GET",
+            headers: headersList
+        });
+        const beforeMovies = await beforeResponse.json();
+        const beforeIds = beforeMovies.map(m => m.id);
+
+        // Paso 2: Crear la película
+        await fetch("http://127.0.0.1:8085/movies/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
         });
 
-        let data = await response.text();
-        console.log(data);
-        const movieId = data.id;
+        // Paso 3: Obtener lista después de insertar
+        const afterResponse = await fetch("http://127.0.0.1:8085/movies/", {
+            method: "GET",
+            headers: headersList
+        });
+        const afterMovies = await afterResponse.json();
 
+        // Paso 4: Buscar el nuevo ID
+        const newMovie = afterMovies.find(m => !beforeIds.includes(m.id));
+
+        if (!newMovie) {
+            console.error("No se pudo identificar la nueva película.");
+            return;
+        }
+
+        const movieId = newMovie.id;
+
+        // Paso 5: Enlazar géneros
         for (const genreId of selectedGenres) {
-            let movieGenreBody = JSON.stringify({
+            const movieGenreBody = JSON.stringify({
                 movie: { id: movieId },
                 genre: { id: genreId }
             });
-    
-            let responseMovieGenre = await fetch("http://172.30.2.74:8085/movie_genre/", {
+
+            const responseMovieGenre = await fetch("http://127.0.0.1:8085/movie_genre/", {
                 method: "POST",
                 body: movieGenreBody,
                 headers: headersList
             });
 
-            let dataMovieGenre = await responseMovieGenre.text();
+            const dataMovieGenre = await responseMovieGenre.text();
             console.log(dataMovieGenre);
         }
 
@@ -49,7 +72,7 @@ function registerMovie() {
 
 function getMovies() {
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/movies/";
+        var url = "http://127.0.0.1:8085/movies/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -144,7 +167,7 @@ function deleteMovie(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this movie?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/movies/${id}`;
+        var url = `http://127.0.0.1:8085/movies/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -166,7 +189,7 @@ function deleteMovie(id) {
 let movieToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/movies/${id}`)
+    fetch(`http://127.0.0.1:8085/movies/${id}`)
     .then(response => response.json())
     .then(movie => {
     movieToUpdate = movie;
@@ -199,7 +222,7 @@ function submitUpdate() {
             launch_year: document.getElementById("update-launch_year").value
         };
         
-        var url = `http://172.30.2.74:8085/movies/${movieToUpdate.id}`;
+        var url = `http://127.0.0.1:8085/movies/${movieToUpdate.id}`;
         console.log(url);
         
         let headersList = {
@@ -229,7 +252,7 @@ function submitUpdate() {
 
 async function loadGenres() {
     try {
-        const response = await fetch("http://172.30.2.74:8085/genres/");
+        const response = await fetch("http://127.0.0.1:8085/genres/");
         const genres = await response.json();
 
         const select = document.getElementById("generos");

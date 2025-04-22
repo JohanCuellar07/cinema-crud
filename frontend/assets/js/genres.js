@@ -12,7 +12,7 @@ function registerGenre() {
             "description": document.getElementById("description").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/genres/", {
+        let response = await fetch("http://127.0.0.1:8085/genres/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
@@ -26,7 +26,7 @@ function registerGenre() {
 
 function getGenres(){
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/genres/";
+        var url = "http://127.0.0.1:8085/genres/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -105,7 +105,7 @@ function deleteGenre(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this genre?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/genres/${id}`;
+        var url = `http://127.0.0.1:8085/genres/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -127,7 +127,7 @@ function deleteGenre(id) {
 let genreToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/genres/${id}`)
+    fetch(`http://127.0.0.1:8085/genres/${id}`)
     .then(response => response.json())
     .then(genre => {
     genreToUpdate = genre;
@@ -154,7 +154,7 @@ function submitUpdate() {
             description: document.getElementById("update-description").value
         };
         
-        var url = `http://172.30.2.74:8085/genres/${genreToUpdate.id}`;
+        var url = `http://127.0.0.1:8085/genres/${genreToUpdate.id}`;
         console.log(url);
         
         let headersList = {

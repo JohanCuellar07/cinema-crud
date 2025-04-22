@@ -14,7 +14,7 @@ function registerActor() {
             "nationality": document.getElementById("nationality").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/actors/", {
+        let response = await fetch("http://127.0.0.1:8085/actors/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
@@ -28,7 +28,7 @@ function registerActor() {
 
 function getActors(){
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/actors/";
+        var url = "http://127.0.0.1:8085/actors/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -124,7 +124,7 @@ function deleteActor(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this actor?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/actors/${id}`;
+        var url = `http://127.0.0.1:8085/actors/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -146,7 +146,7 @@ function deleteActor(id) {
 let actorToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/actors/${id}`)
+    fetch(`http://127.0.0.1:8085/actors/${id}`)
     .then(response => response.json())
     .then(actor => {
     actorToUpdate = actor;
@@ -177,7 +177,7 @@ function submitUpdate() {
             nationality: document.getElementById("update-nationality").value
         };
         
-        var url = `http://172.30.2.74:8085/actors/${actorToUpdate.id}`;
+        var url = `http://127.0.0.1:8085/actors/${actorToUpdate.id}`;
         console.log(url);
         
         let headersList = {

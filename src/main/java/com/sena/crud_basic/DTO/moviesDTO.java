@@ -21,6 +21,7 @@ public class moviesDTO {
         this.time_min = time_min;
         this.launch_year = launch_year;
     }
+    
     public String getTitle(){
         return title;
     }

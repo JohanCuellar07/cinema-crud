@@ -14,7 +14,7 @@ function registerDirector() {
             "nationality": document.getElementById("nationality").value
         });
 
-        let response = await fetch("http://172.30.2.74:8085/directors/", {
+        let response = await fetch("http://127.0.0.1:8085/directors/", {
             method: "POST",
             body: bodyContent,
             headers: headersList
@@ -28,7 +28,7 @@ function registerDirector() {
 
 function getDirectors(){
     return new Promise(async (resolve) => {
-        var url = "http://172.30.2.74:8085/directors/";
+        var url = "http://127.0.0.1:8085/directors/";
         const filterType = document.getElementById("filterType").value;
         const filterValue = document.getElementById("nameFilter").value;
     
@@ -124,7 +124,7 @@ function deleteDirector(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this director?");
         if (!confirmDelete) return;
-        var url = `http://172.30.2.74:8085/directors/${id}`;
+        var url = `http://127.0.0.1:8085/directors/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -146,7 +146,7 @@ function deleteDirector(id) {
 let directorToUpdate = null;
 
 function openModal(id) {
-    fetch(`http://172.30.2.74:8085/directors/${id}`)
+    fetch(`http://127.0.0.1:8085/directors/${id}`)
     .then(response => response.json())
     .then(director => {
     directorToUpdate = director;
@@ -177,7 +177,7 @@ function submitUpdate() {
             nationality: document.getElementById("update-nationality").value
         };
         
-        var url = `http://172.30.2.74:8085/directors/${directorToUpdate.id}`;
+        var url = `http://127.0.0.1:8085/directors/${directorToUpdate.id}`;
         console.log(url);
         
         let headersList = {

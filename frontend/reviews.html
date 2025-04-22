@@ -33,7 +33,7 @@
 
         <div class="form-wrapper">
             <form>
-                <label for="movie_id">Movie ID:</label>
+                <label for="movie_id">Movie:</label>
                 <select type="text" id="movie_id" name="movie_id"></select>
 
                 <label for="name_reviewer">Name reviewer:</label>
@@ -59,6 +59,26 @@
         </div>
         <div id="listReviews" class="movie-grid"></div>
     </section>
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Update Review</h2>
+
+            <label for="update-movie_id">Movie:</label>
+            <input type="text" id="update-movie_id" name="movie_id" disabled>
+
+            <label for="update-name_reviewer">Name reviewer:</label>
+            <input type="text" id="update-name_reviewer" name="name_reviewer">
+
+            <label for="update-rating">Rating:</label>
+            <input type="text" id="update-rating" name="rating">
+
+            <label for="update-comment">Comment:</label>
+            <input type="text" id="update-comment" name="comment">
+        
+            <button onclick="submitUpdate()">Save Changes</button>
+        </div>
+    </div>
     <script src="./assets/js/reviews.js"></script>
     <script src="assets/js/menu.js"></script>
 </body>

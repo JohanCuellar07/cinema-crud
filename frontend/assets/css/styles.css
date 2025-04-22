@@ -32,9 +32,6 @@ html, body {
     gap: 15px;
 }
 
-
-
-/* Título centrado en móvil */
 .title {
     font-size: 30px;
     color: #f0f9ff;
@@ -42,7 +39,7 @@ html, body {
     cursor: pointer;
 }
 
-/* Menú hamburguesa */
+/* Menú */
 .menu-button {
     background-image: url('../images/menu.png');
     background-size: cover;
@@ -670,4 +667,4 @@ form option:checked {
   }
   .modal-content button:hover {
     background-color: #574fd6;
-  }  
+  }
