@@ -40,7 +40,11 @@ function registerPlatform() {
 
         let data = await response.text();
         console.log(data);
+        // Limpiar los inputs
+        document.getElementById("name").value = "";
+        document.getElementById("url_web").value = "";
         getPlatforms();
+        alert("Platform registered successfully!");
     });
 }
 
@@ -124,7 +128,6 @@ function deletePlatform(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this platform?");
         if (!confirmDelete) return;
-        var url = `http://127.0.0.1:8085/platforms/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -132,7 +135,7 @@ function deletePlatform(id) {
             "Content-Type": "application/json"
         }
 
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/platforms/${id}`, {
             method: "DELETE",
             headers: headersList
         });
@@ -140,6 +143,7 @@ function deletePlatform(id) {
         let data = await response.text();
         console.log(data);
         getPlatforms();
+        alert("Platform deleted successfully!");
     })
 }
 
@@ -168,23 +172,39 @@ function closeModal() {
 
 function submitUpdate() {
     return new Promise(async (resolve) => {
-        const updatedPlatform = {
-            name: document.getElementById("update-name").value,
-            url_web: document.getElementById("update-url_web").value
-        };
-        
-        var url = `http://127.0.0.1:8085/platforms/${platformToUpdate.id}`;
-        console.log(url);
-        
+        const updateName = document.getElementById("update-name").value.trim();
+        const updateUrlWeb = document.getElementById("update-url_web").value.trim();
+
+        // Validaciones
+        if (!updateName || !updateUrlWeb) {
+            alert("El nombre y la URL son obligatorios.");
+            return;
+        }
+
+        if (updateName.length > 50) {
+            alert("El nombre no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (updateUrlWeb.length > 200) {
+            alert("La URL no puede tener más de 200 caracteres.");
+            return;
+        }
+
         let headersList = {
-                "Accept": "*/*",
-                "User-Agent": "web",
-                "Content-Type": "application/json"
-            }
+            "Accept": "*/*",
+            "User-Agent": "web",
+            "Content-Type": "application/json"
+        }
+
+        let bodyContent = JSON.stringify({
+            name: updateName,
+            urlWeb: updateUrlWeb
+        });
     
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/platforms/${platformToUpdate.id}`, {
             method: "PUT",
-            body: JSON.stringify(updatedPlatform),
+            body: bodyContent,
             headers: headersList
         });
 
@@ -193,10 +213,12 @@ function submitUpdate() {
     
         if (response.ok) {
             console.log("Platform updated successfully!");
+            alert("Platform updated successfully!");
             closeModal();
             getPlatforms();
         } else {
             console.log("Error updating platform");
+            alert("Error updating platform");
         }    
     })
 }

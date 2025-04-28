@@ -56,7 +56,13 @@ function registerDirector() {
 
         let data = await response.text();
         console.log(data);
+        // Limpiar los inputs
+        document.getElementById("name").value = "";
+        document.getElementById("url_image").value = "";
+        document.getElementById("birth").value = "";
+        document.getElementById("nationality").value = "";
         getDirectors();
+        alert("Director registered successfully!");
     });
 }
 
@@ -158,7 +164,6 @@ function deleteDirector(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this director?");
         if (!confirmDelete) return;
-        var url = `http://127.0.0.1:8085/directors/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -166,7 +171,7 @@ function deleteDirector(id) {
             "Content-Type": "application/json"
         }
 
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/directors/${id}`, {
             method: "DELETE",
             headers: headersList
         });
@@ -174,6 +179,7 @@ function deleteDirector(id) {
         let data = await response.text();
         console.log(data);
         getDirectors();
+        alert("Director deleted successfully!");
     })
 }
 
@@ -204,25 +210,55 @@ function closeModal() {
 
 function submitUpdate() {
     return new Promise(async (resolve) => {
-        const updatedDirector = {
-            name: document.getElementById("update-name").value,
-            urlImage: document.getElementById("update-url_image").value,
-            birth: document.getElementById("update-birth").value,
-            nationality: document.getElementById("update-nationality").value
-        };
-        
-        var url = `http://127.0.0.1:8085/directors/${directorToUpdate.id}`;
-        console.log(url);
+        const updateName = document.getElementById("update-name").value.trim();
+        const updateUrlImage = document.getElementById("update-url_image").value.trim();
+        const updateBirth = document.getElementById("update-birth").value.trim();
+        const updateNationality = document.getElementById("update-nationality").value.trim();
+
+        // Validaciones
+        if (!updateName || !updateUrlImage) {
+            alert("El nombre y la URL de la imagen son obligatorios.");
+            return;
+        }
+
+        if (updateName.length > 50) {
+            alert("El nombre no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (updateUrlImage.length > 200) {
+            alert("La URL de la imagen no puede tener más de 200 caracteres.");
+            return;
+        }
+
+        const today = new Date().toISOString().split('T')[0]; // Formato yyyy-mm-dd
+
+        if (updateBirth > today) {
+            alert("Birth date cannot be in the future.");
+            return;
+        }
+
+        if (updateNationality.length > 50) {
+            alert("La nacionalidad no puede tener más de 50 caracteres.");
+            return;
+        }
         
         let headersList = {
-                "Accept": "*/*",
-                "User-Agent": "web",
-                "Content-Type": "application/json"
-            }
+            "Accept": "*/*",
+            "User-Agent": "web",
+            "Content-Type": "application/json"
+        }
+
+        let bodyContent = JSON.stringify({
+            name: updateName,
+            urlImage: updateUrlImage,
+            birth: updateBirth,
+            nationality: updateNationality
+        });
     
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/directors/${directorToUpdate.id}`, {
             method: "PUT",
-            body: JSON.stringify(updatedDirector),
+            body: bodyContent,
             headers: headersList
         });
 
@@ -231,10 +267,12 @@ function submitUpdate() {
     
         if (response.ok) {
             console.log("Director updated successfully!");
+            alert("Director updated successfully!");
             closeModal();
             getDirectors();
         } else {
             console.log("Error updating director");
+            alert("Error updating director");
         }
     })
 }

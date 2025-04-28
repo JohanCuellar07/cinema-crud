@@ -13,4 +13,7 @@ public interface Iactors extends JpaRepository<actors, Integer> {
 
     @Query("SELECT a FROM actors a WHERE a.name LIKE %?1%")
     List<actors> getListActorsForName(String filter);
+
+    @Query("SELECT a FROM actors a WHERE a.nationality LIKE %?1%")
+    List<actors> getListActorsForNationality(String filter);
 }

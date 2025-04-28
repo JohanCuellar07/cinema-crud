@@ -46,19 +46,24 @@ function registerReview() {
         });
         let data = await response.text();
         console.log(data);
+        // Limpiar los inputs
+        document.getElementById("name_reviewer").value = "";
+        document.getElementById("rating").value = "";
+        document.getElementById("comment").value = "";
         getReviews();
+        alert("Review registered successfully!");
     });
 }
 
 function getReviews(){
     return new Promise(async (resolve) => {
         var url = "http://127.0.0.1:8085/reviews/";
-        /*
-        var filtro = document.getElementById("nameFilter").value;
-        if (filtro != "") {
-            url += "filter/" + filtro;
+        const filterType = document.getElementById("filterType").value;
+        const filterValue = document.getElementById("nameFilter").value;
+    
+        if (filterValue !== "") {
+            url += `filter/${filterType}/${filterValue}`;
         }
-        */
         let headersList = {
             "Accept": "*/*",
             "User-Agent": "web",
@@ -134,7 +139,6 @@ function deleteReview(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this review?");
         if (!confirmDelete) return;
-        var url = `http://127.0.0.1:8085/reviews/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -142,7 +146,7 @@ function deleteReview(id) {
             "Content-Type": "application/json"
         }
 
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/reviews/${id}`, {
             method: "DELETE",
             headers: headersList
         });
@@ -150,6 +154,7 @@ function deleteReview(id) {
         let data = await response.text();
         console.log(data);
         getReviews();
+        alert("Review deleted successfully!");
     })
 }
 
@@ -180,26 +185,48 @@ function closeModal() {
 
 function submitUpdate() {
     return new Promise(async (resolve) => {
-        const updatedReview = {
-            
-            movie: reviewToUpdate.movie_id,
-            name_reviewer: document.getElementById("update-name_reviewer").value,
-            rating: parseInt(document.getElementById("update-rating").value),
-            comment: document.getElementById("update-comment").value
-        };
-        
-        var url = `http://127.0.0.1:8085/reviews/${reviewToUpdate.id}`;
-        console.log(url);
+        const updateMovieId = reviewToUpdate.movie_id;
+        const updateNameReviewer = document.getElementById("update-name_reviewer").value.trim();
+        const updateRating = document.getElementById("update-rating").value.trim();
+        const updateComment = document.getElementById("update-comment").value.trim();
+
+        // Validaciones
+        if (!updateMovieId || !updateNameReviewer || !updateRating || !updateComment) {
+            alert("Todos los campos obligatorios deben ser completados.");
+            return;
+        }
+
+        if (updateNameReviewer.length > 50) {
+            alert("El nombre del revisor no puede tener más de 50 caracteres.");
+            return;
+        }
+
+        if (updateRating > 5) {
+            alert("La calificación no puede ser mayor a 5.");
+            return;
+        }
+
+        if (updateComment.length > 150) {
+            alert("El comentario no puede tener más de 150 caracteres.");
+            return;
+        }
         
         let headersList = {
-                "Accept": "*/*",
-                "User-Agent": "web",
-                "Content-Type": "application/json"
-            }
+            "Accept": "*/*",
+            "User-Agent": "web",
+            "Content-Type": "application/json"
+        }
+
+        let bodyContent = JSON.stringify({
+            movie: updateMovieId,
+            nameReviewer: updateNameReviewer,
+            rating: updateRating,
+            comment: updateComment
+        });
     
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/reviews/${reviewToUpdate.id}`, {
             method: "PUT",
-            body: JSON.stringify(updatedReview),
+            body: bodyContent,
             headers: headersList
         });
 
@@ -208,10 +235,12 @@ function submitUpdate() {
     
         if (response.ok) {
             console.log("Review updated successfully!");
+            alert("Review updated successfully!");
             closeModal();
             getReviews();
         } else {
             console.log("Error updating review");
+            alert("Error updating review");
         }
     })
 }

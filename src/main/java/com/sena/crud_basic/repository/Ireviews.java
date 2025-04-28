@@ -12,13 +12,10 @@ public interface Ireviews extends JpaRepository<reviews, Integer>{
     List<reviews> getListReviewsActive();
 
     @Query("SELECT r FROM reviews r WHERE r.name_reviewer LIKE %?1%")
-    List<reviews> getListReviewsForName(String filter);
+    List<reviews> getListReviewsForReviewer(String filter);
     /* 
     @Query("SELECT r FROM reviews r WHERE r.movie_id LIKE %?1%")
     List<reviews> getListReviewsForMovie(String filter);
-
-    @Query("SELECT r FROM reviews r WHERE r.user_id LIKE %?1%")
-    List<reviews> getListReviewsForUser(String filter);
 
     @Query("SELECT r FROM reviews r WHERE r.rating LIKE %?1%")
     List<reviews> getListReviewsForRating(String filter);

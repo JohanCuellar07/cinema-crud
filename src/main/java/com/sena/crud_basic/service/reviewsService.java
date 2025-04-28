@@ -23,16 +23,12 @@ public class reviewsService {
         return data.getListReviewsActive();
     }
 
-    public List<reviews> getListReviewsForName(String filter){
-        return data.getListReviewsForName(filter);
+    public List<reviews> getListReviewsForReviewer(String filter){
+        return data.getListReviewsForReviewer(filter);
     }
     /* 
     public List<reviews> getListReviewsForMovie(String filter){
         return data.getListReviewsForMovie(filter);
-    }
-
-    public List<reviews> getListReviewsForUser(String filter){
-        return data.getListReviewsForUser(filter);
     }
 
     public List<reviews> getListReviewsForRating(String filter){

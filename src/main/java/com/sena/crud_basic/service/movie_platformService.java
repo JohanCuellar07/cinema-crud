@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.movie_platformDTO;
@@ -23,6 +24,26 @@ public class movie_platformService {
 
     public Optional<movie_platform> findById(int id) {
         return data.findById(id);
+    }
+
+    public responseDTO deleteByMovieId(int movie_id) {
+        List<movie_platform> moviePlatforms = data.findAllByMovieId(movie_id);
+        
+        if (moviePlatforms.isEmpty()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),
+                "No platforms found for the given movie"
+            );
+            return respuesta;
+        }
+    
+        data.deleteByMovieId(movie_id);
+    
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(),
+            "All platform relations for the movie were deleted successfully"
+        );
+        return respuesta;
     }
 
     public responseDTO save(movie_platformDTO movie_platformDTO) {

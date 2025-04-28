@@ -55,6 +55,12 @@ public class directorsController {
         return new ResponseEntity<>(directorsList, HttpStatus.OK);
     }
 
+    @GetMapping("/filter/nationality/{filter}")
+    public ResponseEntity<Object> getListDirectorsForNationality(@PathVariable String filter){
+        var directorsList = directorsService.getListDirectorsForNationality(filter);
+        return new ResponseEntity<>(directorsList, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteDirector(@PathVariable int id){
         var message = directorsService.deleteDirector(id);

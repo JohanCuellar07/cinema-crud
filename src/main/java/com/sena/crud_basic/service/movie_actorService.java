@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.movie_actorDTO;
@@ -22,6 +23,26 @@ public class movie_actorService {
 
     public Optional<movie_actor> findById(int id) {
         return data.findById(id);
+    }
+
+    public responseDTO deleteByMovieId(int movie_id) {
+        List<movie_actor> movieActors = data.findAllByMovieId(movie_id);
+        
+        if (movieActors.isEmpty()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),
+                "No actors found for the given movie"
+            );
+            return respuesta;
+        }
+    
+        data.deleteByMovieId(movie_id);
+    
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(),
+            "All actor relations for the movie were deleted successfully"
+        );
+        return respuesta;
     }
 
     public responseDTO save(movie_actorDTO movie_actorDTO) {

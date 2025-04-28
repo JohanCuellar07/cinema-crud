@@ -25,6 +25,10 @@ public class directorsService {
         return data.getListDirectorsForName(filter);
     }
 
+    public List<directors> getListDirectorsForNationality(String filter){
+        return data.getListDirectorsForNationality(filter);
+    }
+
     public Optional<directors> findById(int id){
         return data.findById(id);
     }

@@ -56,6 +56,12 @@ public class actorsController {
         return new ResponseEntity<>(actorsList, HttpStatus.OK);
     }
 
+    @GetMapping("/filter/nationality/{filter}")
+    public ResponseEntity<Object> getListActorsForNationality(@PathVariable String filter){
+        var actorsList = actorsService.getListActorsForNationality(filter);
+        return new ResponseEntity<>(actorsList, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteActor(@PathVariable int id){
         var message = actorsService.deleteActor(id);

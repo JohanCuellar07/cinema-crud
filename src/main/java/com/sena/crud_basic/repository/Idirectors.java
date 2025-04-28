@@ -13,4 +13,7 @@ public interface Idirectors extends JpaRepository<directors, Integer> {
 
     @Query("SELECT d FROM directors d WHERE d.name LIKE %?1%")
     List<directors> getListDirectorsForName(String filter);
+
+    @Query("SELECT d FROM directors d WHERE d.nationality LIKE %?1%")
+    List<directors> getListDirectorsForNationality(String filter);
 }

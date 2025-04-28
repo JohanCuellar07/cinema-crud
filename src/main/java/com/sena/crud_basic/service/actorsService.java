@@ -25,6 +25,10 @@ public class actorsService {
         return data.getListActorsForName(filter);
     }
 
+    public List<actors> getListActorsForNationality(String filter){
+        return data.getListActorsForNationality(filter);
+    }
+
     public Optional<actors> findById(int id){
         return data.findById(id);
     }

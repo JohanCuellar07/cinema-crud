@@ -106,7 +106,14 @@ function registerMovie() {
             console.log(dataMovieGenre);
         }
 
+        // Limpiar los inputs
+        document.getElementById("title").value = "";
+        document.getElementById("url_image").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("time_min").value = "";
+        document.getElementById("launch_year").value = "";
         getMovies();
+        alert("Movie registered successfully!");
     });
 }
 
@@ -231,6 +238,7 @@ function deleteMovie(id) {
         let data = await response.text();
         console.log(data);
         getMovies();
+        alert("Movie deleted successfully!");
     });
 }
 
@@ -290,10 +298,12 @@ function submitUpdate() {
     
         if (response.ok) {
             console.log("Movie updated successfully!");
+            alert("Movie updated successfully!");
             closeModal();
             getMovies();
         } else {
             console.log("Error updating movie");
+            alert("Error updating movie");
         }
     })
 }

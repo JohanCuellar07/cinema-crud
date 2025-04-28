@@ -10,38 +10,37 @@ import org.springframework.stereotype.Service;
 import com.sena.crud_basic.DTO.movie_genreDTO;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.model.movie_genre;
-import com.sena.crud_basic.model.movies;
 import com.sena.crud_basic.repository.Imovie_genre;
-import com.sena.crud_basic.repository.Imovies;
 
 @Service
 public class movie_genreService {
     @Autowired
     private Imovie_genre data;
 
-    @Autowired
-    private Imovies moviesData;
-
-    public List<movies> findAll(){
-        return moviesData.findAll();
+    public List<movie_genre> findAll(){
+        return data.findAll();
     }
 
-    public Optional<movies> findById(int id){
-        return moviesData.findById(id);
+    public Optional<movie_genre> findById(int id){
+        return data.findById(id);
     }
 
-    public responseDTO deleteByMovieId(int id) {
-        if (!moviesData.findById(id).isPresent()) {
+    public responseDTO deleteByMovieId(int movie_id) {
+        List<movie_genre> movieGenres = data.findAllByMovieId(movie_id);
+        
+        if (movieGenres.isEmpty()) {
             responseDTO respuesta = new responseDTO(
-                HttpStatus.OK.toString(), 
-                "The register does not exist"
+                HttpStatus.NOT_FOUND.toString(),
+                "No genres found for the given movie"
             );
             return respuesta;
         }
-        data.deleteById(id);
+    
+        data.deleteByMovieId(movie_id);
+    
         responseDTO respuesta = new responseDTO(
-            HttpStatus.OK.toString(), 
-            "Was successfully deleted"
+            HttpStatus.OK.toString(),
+            "All genre relations for the movie were deleted successfully"
         );
         return respuesta;
     }

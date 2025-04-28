@@ -3,6 +3,7 @@ package com.sena.crud_basic.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +37,11 @@ public class movie_actorController {
     public ResponseEntity<Object> getAllMovie_Actor() {
         var listPeliculasActores = movie_actorService.findAll();
         return new ResponseEntity<>(listPeliculasActores, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/movie/{movieId}")
+    public ResponseEntity<Object> deleteByMovieId(@PathVariable int movieId) {
+        var message = movie_actorService.deleteByMovieId(movieId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

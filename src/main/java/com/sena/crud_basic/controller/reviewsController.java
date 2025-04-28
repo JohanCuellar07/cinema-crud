@@ -49,6 +49,11 @@ public class reviewsController {
         }
         return new ResponseEntity<>(resena, HttpStatus.OK);
     }
+    @GetMapping("/filter/reviewer/{filter}")
+    public ResponseEntity<Object> getListReviewsForReviewer(@PathVariable String filter){
+        var reviewsList = reviewsService.getListReviewsForReviewer(filter);
+        return new ResponseEntity<>(reviewsList, HttpStatus.OK);
+    }
     /* 
     @GetMapping("/filter/movie/{filter}")
     public ResponseEntity<Object> getListReviewsForMovie(@PathVariable String filter){
@@ -56,11 +61,7 @@ public class reviewsController {
         return new ResponseEntity<>(reviewsList, HttpStatus.OK);
     }
 
-    @GetMapping("/filter/user/{filter}")
-    public ResponseEntity<Object> getListReviewsForUser(@PathVariable String filter){
-        var reviewsList = reviewsService.getListReviewsForUser(filter);
-        return new ResponseEntity<>(reviewsList, HttpStatus.OK);
-    }
+
 
     @GetMapping("/filter/rating/{filter}")
     public ResponseEntity<Object> getListReviewsForRating(@PathVariable String filter){

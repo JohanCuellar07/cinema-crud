@@ -41,7 +41,11 @@ function registerGenre() {
 
         let data = await response.text();
         console.log(data);
+        // Limpiar los inputs
+        document.getElementById("name").value = "";
+        document.getElementById("description").value = "";
         getGenres();
+        alert("Genre registered successfully!");
     });
 }
 
@@ -126,7 +130,6 @@ function deleteGenre(id) {
     return new Promise(async (resolve) => {
         const confirmDelete = confirm("Are you sure you want to delete this genre?");
         if (!confirmDelete) return;
-        var url = `http://127.0.0.1:8085/genres/${id}`;
 
         let headersList = {
             "Accept": "*/*",
@@ -134,7 +137,7 @@ function deleteGenre(id) {
             "Content-Type": "application/json"
         }
 
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/genres/${id}`, {
             method: "DELETE",
             headers: headersList
         });
@@ -142,6 +145,7 @@ function deleteGenre(id) {
         let data = await response.text();
         console.log(data);
         getGenres();
+        alert("Genre deleted successfully!");
     })
 }
 
@@ -170,23 +174,40 @@ function closeModal() {
 
 function submitUpdate() {
     return new Promise(async (resolve) => {
-        const updatedGenre = {
-            name: document.getElementById("update-name").value,
-            description: document.getElementById("update-description").value
-        };
-        
-        var url = `http://127.0.0.1:8085/genres/${genreToUpdate.id}`;
-        console.log(url);
+        const updateName = document.getElementById("update-name").value.trim();
+        const updatedescription = document.getElementById("update-description").value.trim();
+    
+        // Validaciones
+        if (!updateName) {
+            alert("Todos los campos obligatorios deben ser completados.");
+            return;
+        }
+    
+        if (updateName.length > 50) {
+            alert("El nombre no puede tener más de 50 caracteres.");
+            return;
+        }
+    
+    
+        if (updatedescription.length > 200) {
+            alert("La descripción no puede tener más de 200 caracteres.");
+            return;
+        }
         
         let headersList = {
-                "Accept": "*/*",
-                "User-Agent": "web",
-                "Content-Type": "application/json"
-            }
+            "Accept": "*/*",
+            "User-Agent": "web",
+            "Content-Type": "application/json"
+        }
+
+        let bodyContent = JSON.stringify({
+            name: updateName,
+            description: updatedescription
+        });
     
-        let response = await fetch(url, {
+        let response = await fetch(`http://127.0.0.1:8085/genres/${genreToUpdate.id}`, {
             method: "PUT",
-            body: JSON.stringify(updatedGenre),
+            body: bodyContent,
             headers: headersList
         });
 
@@ -195,10 +216,12 @@ function submitUpdate() {
     
         if (response.ok) {
             console.log("Genre updated successfully!");
+            alert("Genre updated successfully!");
             closeModal();
             getGenres();
         } else {
             console.log("Error updating genre");
+            alert("Error updating genre");
         }
     })
 }
