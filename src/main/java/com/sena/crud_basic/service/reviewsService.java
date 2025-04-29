@@ -26,6 +26,11 @@ public class reviewsService {
     public List<reviews> getListReviewsForReviewer(String filter){
         return data.getListReviewsForReviewer(filter);
     }
+    
+    public List<reviews> getReviewsByMovieId(int movieId){
+        return data.getReviewsByMovieId(movieId);
+    }
+
     /* 
     public List<reviews> getListReviewsForMovie(String filter){
         return data.getListReviewsForMovie(filter);

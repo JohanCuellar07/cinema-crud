@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sena.crud_basic.DTO.moviesDTO;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.service.moviesService;
+import com.sena.crud_basic.service.reviewsService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,8 @@ public class moviesController {
      */
     @Autowired
     private moviesService moviesService;
+    @Autowired
+    private reviewsService reviewsService;
 
     @PostMapping("/")
     public ResponseEntity<Object> registerMovies(@RequestBody moviesDTO movies) {
@@ -65,6 +69,30 @@ public class moviesController {
     @GetMapping("/genres/{id}")
     public ResponseEntity<Object> getGenresByMovieId(@PathVariable int id) {
         var message = moviesService.getGenresByMovieId(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/actors/{id}")
+    public ResponseEntity<Object> getActorsByMovieId(@PathVariable int id) {
+        var message = moviesService.getActorsByMovieId(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/directors/{id}")
+    public ResponseEntity<Object> getDirectorsByMovieId(@PathVariable int id) {
+        var message = moviesService.getDirectorsByMovieId(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/platforms/{id}")
+    public ResponseEntity<Object> getPlatformsByMovieId(@PathVariable int id) {
+        var message = moviesService.getPlatformsByMovieId(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/reviews/{id}")
+    public ResponseEntity<Object> getReviewsByMovieId(@PathVariable int id) {
+        var message = reviewsService.getReviewsByMovieId(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
     

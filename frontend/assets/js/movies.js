@@ -7,6 +7,9 @@ function registerMovie() {
         const timeMin = document.getElementById("time_min").value.trim();
         const launchYear = document.getElementById("launch_year").value.trim();
         const selectedGenres = Array.from(document.getElementById("generos").selectedOptions).map(option => parseInt(option.value));
+        const selectedActors = Array.from(document.getElementById("actores").selectedOptions).map(option => parseInt(option.value));
+        const selectedDirectors = Array.from(document.getElementById("directores").selectedOptions).map(option => parseInt(option.value));
+        const selectedPlatforms = Array.from(document.getElementById("plataformas").selectedOptions).map(option => parseInt(option.value));
 
         // Validaciones
         if (!title || !urlImage || !timeMin || !launchYear) {
@@ -44,6 +47,21 @@ function registerMovie() {
 
         if (selectedGenres.length === 0) {
             alert("Debes seleccionar al menos un género.");
+            return;
+        }
+
+        if (selectedActors.length === 0) {
+            alert("Debes seleccionar al menos un actor.");
+            return;
+        }
+
+        if (selectedDirectors.length === 0) {
+            alert("Debes seleccionar al menos un director.");
+            return;
+        }
+
+        if (selectedPlatforms.length === 0) {
+            alert("Debes seleccionar al menos una plataforma.");
             return;
         }
 
@@ -106,6 +124,54 @@ function registerMovie() {
             console.log(dataMovieGenre);
         }
 
+        for (const actorId of selectedActors) {
+            const movieActorBody = JSON.stringify({
+                movie: { id: movieId },
+                actor: { id: actorId }
+            });
+
+            const responseMovieActor = await fetch("http://127.0.0.1:8085/movie_actor/", {
+                method: "POST",
+                body: movieActorBody,
+                headers: headersList
+            });
+
+            const dataMovieActor = await responseMovieActor.text();
+            console.log(dataMovieActor);
+        }
+
+        for (const directorId of selectedDirectors) {
+            const movieDirectorBody = JSON.stringify({
+                movie: { id: movieId },
+                director: { id: directorId }
+            });
+
+            const responseMovieDirector = await fetch("http://127.0.0.1:8085/movie_director/", {
+                method: "POST",
+                body: movieDirectorBody,
+                headers: headersList
+            });
+
+            const dataMovieDirector = await responseMovieDirector.text();
+            console.log(dataMovieDirector);
+        }
+
+        for (const platformId of selectedPlatforms) {
+            const moviePlatformBody = JSON.stringify({
+                movie: { id: movieId },
+                platform: { id: platformId }
+            });
+
+            const responseMoviePlatform = await fetch("http://127.0.0.1:8085/movie_platform/", {
+                method: "POST",
+                body: moviePlatformBody,
+                headers: headersList
+            });
+
+            const dataMoviePlatform = await responseMoviePlatform.text();
+            console.log(dataMoviePlatform);
+        }
+
         // Limpiar los inputs
         document.getElementById("title").value = "";
         document.getElementById("url_image").value = "";
@@ -142,79 +208,84 @@ function getMovies() {
         var container = document.getElementById("listMovies");
         container.innerHTML = "";
         data.forEach(movie => {
-            // Crear columna si estás usando Bootstrap o grillas
+            // Crear columna
             let col = document.createElement("div");
             col.className = "col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center";
             
-            // Crear enlace
-            let link = document.createElement("a");
-            link.href = "movieDetails.html?id=" + movie.id;
-            link.style.textDecoration = "none";
-            link.style.color = "inherit";
-
             // Card principal
             let card = document.createElement("div");
             card.className = "movie-card";
-
+        
             // Imagen
             let imageContainer = document.createElement("div");
             imageContainer.className = "movie-image";
-
+        
+            let linkImage = document.createElement("a"); // link para la imagen
+            linkImage.href = "movieDetails.html?id=" + movie.id;
+            linkImage.style.textDecoration = "none";
+            linkImage.style.color = "inherit";
+        
             let image = document.createElement("img");
             image.src = movie["urlImage"];
             image.alt = "Imagen de la película";
             image.id = "card-image";
-
-            imageContainer.appendChild(image);
-
+        
             // Contenido
             let content = document.createElement("div");
             content.className = "movie-content";
-
+        
+            let linkTitle = document.createElement("a"); // link para el título
+            linkTitle.href = "movieDetails.html?id=" + movie.id;
+            linkTitle.style.textDecoration = "none";
+            linkTitle.style.color = "inherit";
+        
             let title = document.createElement("div");
             title.className = "movie-title";
             title.id = "card-title";
             title.innerText = movie["title"];
-
+        
             let info = document.createElement("div");
             info.className = "movie-info";
             info.innerHTML = `<span id="card-year">${movie["launch_year"]}</span> • <span id="card-time">${movie["time_min"]}</span> min`;
-
+        
             let description = document.createElement("div");
             description.className = "movie-description";
             description.id = "card-description";
             description.innerText = movie["description"];
-
+        
             // Botones
             let buttonContainer = document.createElement("div");
             buttonContainer.className = "movie-buttons";
-
+        
             let btnEdit = document.createElement("button");
             btnEdit.className = "btn-edit";
             btnEdit.setAttribute("onclick", "openModal(" + movie.id + ")");
             btnEdit.innerText = "Update";
-
+        
             let btnDelete = document.createElement("button");
             btnDelete.className = "btn-delete";
             btnDelete.setAttribute("onclick", "deleteMovie(" + movie.id + ")");
             btnDelete.innerText = "Delete";
-
+        
             buttonContainer.appendChild(btnEdit);
             buttonContainer.appendChild(btnDelete);
-
+        
             // Construir card
-            content.appendChild(title);
+            linkImage.appendChild(image); // la imagen dentro del link
+            imageContainer.appendChild(linkImage);
+            linkTitle.appendChild(title); // el título dentro del link
+            content.appendChild(linkTitle); // usamos linkTitle (no directamente title)
             content.appendChild(info);
             content.appendChild(description);
             content.appendChild(buttonContainer);
-
+        
             card.appendChild(imageContainer);
             card.appendChild(content);
-            link.appendChild(card);
-
-            col.appendChild(link);
+        
+            col.appendChild(card);
             container.appendChild(col);
         });
+        
     })
 }
 
@@ -383,6 +454,105 @@ async function loadGenres() {
     }
 }
 
+async function loadActors() {
+    try {
+        const response = await fetch("http://127.0.0.1:8085/actors/");
+        const actors = await response.json();
+
+        const select = document.getElementById("actores");
+        select.innerHTML = ""; // Limpiar opciones anteriores
+
+        // Agregar cada género como opción
+        actors.forEach(actor => {
+            const option = document.createElement("option");
+            option.value = actor.id; // Asegúrate de que sea el ID del género
+            option.textContent = actor.name; // O el campo que contenga el nombre
+            select.appendChild(option);
+        });
+
+        // Inicializar Choices (si ya estaba creado, lo destruimos primero)
+        if (select.choicesInstance) {
+            select.choicesInstance.destroy();
+        }
+
+        const choices = new Choices(select, {
+            removeItemButton: true
+        });
+
+        // Guardamos la instancia para evitar múltiples inicializaciones
+        select.choicesInstance = choices;
+
+    } catch (error) {
+        console.error("Error cargando actores:", error);
+    }
+}
+
+async function loadDirectors() {
+    try {
+        const response = await fetch("http://127.0.0.1:8085/directors/");
+        const directors = await response.json();
+
+        const select = document.getElementById("directores");
+        select.innerHTML = ""; // Limpiar opciones anteriores
+
+        // Agregar cada género como opción
+        directors.forEach(director => {
+            const option = document.createElement("option");
+            option.value = director.id; // Asegúrate de que sea el ID del género
+            option.textContent = director.name; // O el campo que contenga el nombre
+            select.appendChild(option);
+        });
+
+        // Inicializar Choices (si ya estaba creado, lo destruimos primero)
+        if (select.choicesInstance) {
+            select.choicesInstance.destroy();
+        }
+
+        const choices = new Choices(select, {
+            removeItemButton: true
+        });
+
+        // Guardamos la instancia para evitar múltiples inicializaciones
+        select.choicesInstance = choices;
+
+    } catch (error) {
+        console.error("Error cargando directores:", error);
+    }
+}
+
+async function loadPlatforms() {
+    try {
+        const response = await fetch("http://127.0.0.1:8085/platforms/");
+        const platforms = await response.json();
+
+        const select = document.getElementById("plataformas");
+        select.innerHTML = ""; // Limpiar opciones anteriores
+
+        // Agregar cada género como opción
+        platforms.forEach(platform => {
+            const option = document.createElement("option");
+            option.value = platform.id; // Asegúrate de que sea el ID del género
+            option.textContent = platform.name; // O el campo que contenga el nombre
+            select.appendChild(option);
+        });
+
+        // Inicializar Choices (si ya estaba creado, lo destruimos primero)
+        if (select.choicesInstance) {
+            select.choicesInstance.destroy();
+        }
+
+        const choices = new Choices(select, {
+            removeItemButton: true
+        });
+
+        // Guardamos la instancia para evitar múltiples inicializaciones
+        select.choicesInstance = choices;
+
+    } catch (error) {
+        console.error("Error cargando plataformas:", error);
+    }
+}
+
 async function loadUpdateGenres(selectedGenreIds) {
     try {
         const response = await fetch("http://127.0.0.1:8085/genres/");
@@ -404,6 +574,3 @@ async function loadUpdateGenres(selectedGenreIds) {
         console.error("Error loading genres for update:", error);
     }
 }
-
-// Llamar a la función cuando cargue la página
-window.addEventListener("DOMContentLoaded", loadGenres);

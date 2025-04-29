@@ -9,7 +9,7 @@
     <link rel="icon" href="assets/images/Designer.jpeg">
     <title>Movies</title>
 </head>
-<body onload="getMovies();">
+<body onload="getMovies(), loadGenres(), loadActors(), loadDirectors(), loadPlatforms();">
     <section class="navbar">
         <div class="navbar-left">
             <div class="menu menu-button" onclick="toggleMenu()"></div>
@@ -44,6 +44,15 @@
 
                 <label for="generos">Genres:</label>
                 <select id="generos" name="generos[]" multiple required></select>
+
+                <label for="actores">Actors:</label>
+                <select id="actores" name="actores[]" multiple required></select>
+
+                <label for="directores">Directors:</label>
+                <select id="directores" name="directores[]" multiple required></select>
+
+                <label for="plataformas">Platforms:</label>
+                <select id="plataformas" name="plataformas[]" multiple required></select>
 
                 <label for="time_min">Time min:</label>
                 <input type="text" id="time_min" name="time_min" required>
@@ -80,10 +89,19 @@
 
             <label for="update-description">Description:</label>
             <input type="text" id="update-description" name="description">
-
+            <!-- 
             <label for="update-generos">Genres:</label>
             <select id="update-generos" name="generos[]" multiple required></select>
 
+            <label for="update-actores">Actors:</label>
+            <select id="update-actores" name="actores[]" multiple required></select>
+
+            <label for="update-directores">Directors:</label>
+            <select id="update-directores" name="directores[]" multiple required></select>
+
+            <label for="update-plataformas">Platforms:</label>
+            <select id="update-plataformas" name="plataformas[]" multiple required></select>
+-->
             <label for="update-time_min">Time min:</label>
             <input type="text" id="update-time_min" name="time_min">
 

@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.moviesDTO;
 import com.sena.crud_basic.DTO.responseDTO;
+import com.sena.crud_basic.model.actors;
+import com.sena.crud_basic.model.directors;
 import com.sena.crud_basic.model.genres;
 import com.sena.crud_basic.model.movies;
+import com.sena.crud_basic.model.platforms;
 import com.sena.crud_basic.repository.Imovies;
 
 @Service
@@ -41,6 +44,18 @@ public class moviesService {
 
     public List<genres> getGenresByMovieId(int movieId){
         return data.getGenresByMovieId(movieId);
+    }
+
+    public List<actors> getActorsByMovieId(int movieId){
+        return data.getActorsByMovieId(movieId);
+    }
+
+    public List<directors> getDirectorsByMovieId(int movieId){
+        return data.getDirectorsByMovieId(movieId);
+    }
+
+    public List<platforms> getPlatformsByMovieId(int movieId){
+        return data.getPlatformsByMovieId(movieId);
     }
 
     public responseDTO deleteMovie(int id){

@@ -13,6 +13,9 @@ public interface Ireviews extends JpaRepository<reviews, Integer>{
 
     @Query("SELECT r FROM reviews r WHERE r.name_reviewer LIKE %?1%")
     List<reviews> getListReviewsForReviewer(String filter);
+
+    @Query("SELECT r FROM reviews r WHERE r.movie = :movieId")
+    List<reviews> getReviewsByMovieId(int movieId);
     /* 
     @Query("SELECT r FROM reviews r WHERE r.movie_id LIKE %?1%")
     List<reviews> getListReviewsForMovie(String filter);
