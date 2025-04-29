@@ -145,6 +145,12 @@ function getMovies() {
             // Crear columna si estás usando Bootstrap o grillas
             let col = document.createElement("div");
             col.className = "col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center";
+            
+            // Crear enlace
+            let link = document.createElement("a");
+            link.href = "movieDetails.html?id=" + movie.id;
+            link.style.textDecoration = "none";
+            link.style.color = "inherit";
 
             // Card principal
             let card = document.createElement("div");
@@ -204,7 +210,9 @@ function getMovies() {
 
             card.appendChild(imageContainer);
             card.appendChild(content);
-            col.appendChild(card);
+            link.appendChild(card);
+
+            col.appendChild(link);
             container.appendChild(col);
         });
     })
@@ -244,24 +252,58 @@ function deleteMovie(id) {
 
 let movieToUpdate = null;
 
-function openModal(id) {
-    fetch(`http://127.0.0.1:8085/movies/${id}`)
-    .then(response => response.json())
-    .then(movie => {
-    movieToUpdate = movie;
+async function openModal(id) {
+    try {
+        // Obtén la película con sus géneros a través de la API
+        const response = await fetch(`http://127.0.0.1:8085/movies/${id}`);
+        const movie = await response.json();
+        movieToUpdate = movie;
 
-    document.getElementById("update-title").value = movie.title;
-    document.getElementById("update-url_image").value = movie.urlImage;
-    document.getElementById("update-description").value = movie.description;
-    document.getElementById("update-time_min").value = movie.time_min;
-    document.getElementById("update-launch_year").value = movie.launch_year;
+        // Primero carga los géneros en el select del modal
+        await loadUpdateGenres(movie.generos ? movie.generos.map(g => g.id) : []);
 
-    document.getElementById("updateModal").style.display = "block";
-    })
-    .catch(error => {
-    console.error("Error al obtener la película:", error);
-    alert("Error al cargar la película para editar.");
-    });
+        // Ahora puedes continuar llenando los campos del formulario del modal
+        document.getElementById("update-title").value = movie.title;
+        document.getElementById("update-url_image").value = movie.urlImage;
+        document.getElementById("update-description").value = movie.description;
+        document.getElementById("update-time_min").value = movie.time_min;
+        document.getElementById("update-launch_year").value = movie.launch_year;
+
+        // El select de géneros es el que se ha cargado
+        const generosSelect = document.getElementById("update-generos");
+
+        // Primero deseleccionamos todas las opciones
+        Array.from(generosSelect.options).forEach(option => {
+            option.selected = false;
+        });
+
+        // Seleccionamos los géneros de la película (de la pivote)
+        if (movie.generos && Array.isArray(movie.generos)) {
+            movie.generos.forEach(genero => {
+                const optionToSelect = Array.from(generosSelect.options).find(option => parseInt(option.value) === genero.id);
+                if (optionToSelect) {
+                    optionToSelect.selected = true;
+                }
+            });
+        }
+
+        // Elimina instancias anteriores de Choices si existen
+        if (generosSelect.choicesInstance) {
+            generosSelect.choicesInstance.destroy();
+        }
+
+        // Crea nueva instancia Choices para el select de géneros
+        const choices = new Choices(generosSelect, {
+            removeItemButton: true
+        });
+        generosSelect.choicesInstance = choices;
+
+        // Mostrar el modal
+        document.getElementById("updateModal").style.display = "block";
+    } catch (error) {
+        console.error("Error al obtener la película:", error);
+        alert("Error al cargar la película para editar.");
+    }
 }
 
 function closeModal() {
@@ -338,6 +380,28 @@ async function loadGenres() {
 
     } catch (error) {
         console.error("Error cargando géneros:", error);
+    }
+}
+
+async function loadUpdateGenres(selectedGenreIds) {
+    try {
+        const response = await fetch("http://127.0.0.1:8085/genres/");
+        const genres = await response.json();
+
+        const select = document.getElementById("update-generos");
+        select.innerHTML = "";
+
+        genres.forEach(genre => {
+            const option = document.createElement("option");
+            option.value = genre.id;
+            option.text = genre.name;
+            if (selectedGenreIds.includes(genre.id)) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading genres for update:", error);
     }
 }
 

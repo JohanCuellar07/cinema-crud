@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sena.crud_basic.DTO.moviesDTO;
 import com.sena.crud_basic.DTO.responseDTO;
+import com.sena.crud_basic.model.genres;
 import com.sena.crud_basic.model.movies;
 import com.sena.crud_basic.repository.Imovies;
 
@@ -33,14 +34,13 @@ public class moviesService {
     public List<movies> getListMoviesForTitle(String filter){
         return data.getListMoviesForTitle(filter);
     }
-    /* 
-    public List<movies> getListMoviesForLaunchYear(String filter){
-        return data.getListMoviesForLaunchYear(filter);
-    }
-    */
 
     public Optional<movies> findById(int id){
         return data.findById(id);
+    }
+
+    public List<genres> getGenresByMovieId(int movieId){
+        return data.getGenresByMovieId(movieId);
     }
 
     public responseDTO deleteMovie(int id){

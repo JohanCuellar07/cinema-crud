@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/images/Designer.jpeg">
+    <title>Movie Details</title>
+</head>
+<body onload="getMovie();">
+    <section class="navbar">
+        <div class="navbar-left">
+            <div class="menu menu-button" onclick="toggleMenu()"></div>
+            <div class="title" onclick="window.location.href='index.html'">RetroVision</div>
+        </div>
+    
+        <div class="nav-links">
+            <div class="movie crud active" onclick="window.location.href='movies.html'">Movies</div>
+            <div class="genre crud" onclick="window.location.href='genres.html'">Genres</div>
+            <div class="review crud" onclick="window.location.href='reviews.html'">Reviews</div>
+            <div class="actor crud" onclick="window.location.href='actors.html'">Actors</div>
+            <div class="directors crud" onclick="window.location.href='directors.html'">Directors</div>
+            <div class="platforms crud" onclick="window.location.href='platforms.html'">Platforms</div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="title title-title" onclick="window.location.href='movies.html'">
+            <h1>Movie Details</h1>
+        </div>
+        <div id="movie-details">
+            <!-- Portada -->
+            <img id="movie-image" src="" alt="Poster de la película"/>
+        
+            <!-- Columna principal -->
+            <div class="movie-main">
+              <h1 id="movie-title"></h1>
+              <div class="movie-sub">
+                <span id="movie-launch"></span> • Dirigida por <a href="#" id="movie-director"></a>
+              </div>
+        
+              <div id="movie-description"></div>
+        
+              <div class="movie-stats">
+                <div><strong>Duration:</strong> <span id="movie-duration"></span> min</div>
+                <!--
+                <div><strong>Rating:</strong> <span id="movie-rating"></span></div>
+                <div><strong>Fans:</strong> <span id="movie-fans"></span></div>
+                -->
+              </div>
+        
+              <div class="section">
+                <h2>Genres</h2>
+                <ul id="movie-genres"></ul>
+              </div>
+        
+              <div class="section">
+                <h2>Actors</h2>
+                <ul id="movie-actors"></ul>
+              </div>
+        
+              <div class="section">
+                <h2>Platforms</h2>
+                <ul id="movie-platforms"></ul>
+              </div>
+        
+              <div class="section">
+                <h2>Reviews</h2>
+                <ul id="movie-reviews"></ul>
+              </div>
+        <!--
+              <div class="actions">
+                <button id="watch-btn">Watched</button>
+                <button id="like-btn">Like ♥</button>
+                <button id="watchlist-btn">Watchlist</button>
+              </div>
+        -->
+              <a href="javascript:history.back()" class="button-back">← Go back</a>
+            </div>
+          </div>
+    </section>
+    <script src="./assets/js/movieDetails.js"></script>
+    <script src="assets/js/menu.js"></script>
+</body>
+</html>

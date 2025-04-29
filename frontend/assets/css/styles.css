@@ -668,3 +668,197 @@ form option:checked {
   .modal-content button:hover {
     background-color: #574fd6;
   }
+  
+  a { color: #1fb6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Contenedor principal */
+  #movie-details {
+    background-color: #1e1e1e;
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 40px 40px;
+    border-radius: 15px;
+  }
+
+  /* Portada */
+  #movie-image {
+    flex-shrink: 0;
+    height: 400px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  }
+
+  /* Columna de contenido */
+  .movie-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Título y subtítulo */
+  #movie-title {
+    font-size: 2.5rem;
+    color: #fff;
+  }
+  .movie-sub {
+    font-size: 1rem;
+    color: #999;
+  }
+  .movie-sub a { color: #1fb6ff; }
+
+  /* Descripción */
+  #movie-description {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 6px;
+  }
+
+  /* Info rápida */
+  .movie-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+
+  /* Secciones (Géneros, Actores…) */
+  .section {
+    margin-top: 20px;
+  }
+  .section h2 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .section ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .section ul li {
+    background: rgba(255,255,255,0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  /* Reseñas */
+  #movie-reviews li {
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* Botones de acción */
+  .actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .actions button {
+    background: #1fb6ff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .actions button:hover {
+    background: #009ec3;
+  }
+
+  /* Botón volver */
+  .button-back {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 8px 12px;
+    color: #aaa;
+    font-size: 0.9rem;
+  }
+  .button-back:hover {
+    color: #fff;
+  }
+
+  /* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  #movie-details {
+    flex-direction: column;
+    align-items: center;
+    padding: 20 20px;
+  }
+
+  #movie-image {
+    height: 350px;
+    width: 260px;
+  }
+
+  .movie-main {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .movie-sub,
+  .movie-stats {
+    justify-content: center;
+  }
+
+  .section ul {
+    justify-content: center;
+  }
+
+  .actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 576px) {
+  #movie-image {
+    height: 300px;
+    width: 100%;
+    max-width: 220px;
+  }
+
+  #movie-title {
+    font-size: 1.8rem;
+  }
+
+  .movie-sub {
+    font-size: 0.9rem;
+  }
+
+  .movie-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .section ul li {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .actions button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+.genre-tag {
+  background-color: #5c7ce7;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 5px;
+  display: inline-block;
+  font-size: 18px;
+}
