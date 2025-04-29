@@ -135,6 +135,12 @@ function deletePlatform(id) {
             "Content-Type": "application/json"
         }
 
+        const moviePlatformUrl = `http://127.0.0.1:8085/movie_platform/movie/${id}`;
+        await fetch(moviePlatformUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
         let response = await fetch(`http://127.0.0.1:8085/platforms/${id}`, {
             method: "DELETE",
             headers: headersList

@@ -307,6 +307,24 @@ function deleteMovie(id) {
             headers: headersList
         });
 
+        const movieActorUrl = `http://127.0.0.1:8085/movie_actor/movie/${id}`;
+        await fetch(movieActorUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
+        const movieDirectorUrl = `http://127.0.0.1:8085/movie_director/movie/${id}`;
+        await fetch(movieDirectorUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
+        const moviePlatformUrl = `http://127.0.0.1:8085/movie_platform/movie/${id}`;
+        await fetch(moviePlatformUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
         // 2. Eliminar la película
         const movieUrl = `http://127.0.0.1:8085/movies/${id}`;
         let response = await fetch(movieUrl, {

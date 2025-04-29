@@ -171,6 +171,12 @@ function deleteDirector(id) {
             "Content-Type": "application/json"
         }
 
+        const movieDirectorUrl = `http://127.0.0.1:8085/movie_director/movie/${id}`;
+        await fetch(movieDirectorUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
         let response = await fetch(`http://127.0.0.1:8085/directors/${id}`, {
             method: "DELETE",
             headers: headersList

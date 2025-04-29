@@ -137,6 +137,12 @@ function deleteGenre(id) {
             "Content-Type": "application/json"
         }
 
+        const movieGenreUrl = `http://127.0.0.1:8085/movie_genre/movie/${id}`;
+        await fetch(movieGenreUrl, {
+            method: "DELETE",
+            headers: headersList
+        });
+
         let response = await fetch(`http://127.0.0.1:8085/genres/${id}`, {
             method: "DELETE",
             headers: headersList
