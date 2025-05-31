@@ -25,6 +25,10 @@ public class movie_genreService {
         return data.findById(id);
     }
 
+    public List<movie_genre> findAllByGenreId(int genre_id) {
+        return data.findAllByGenreId(genre_id);
+    }
+
     public responseDTO deleteByMovieId(int movie_id) {
         List<movie_genre> movieGenres = data.findAllByMovieId(movie_id);
         
@@ -41,6 +45,26 @@ public class movie_genreService {
         responseDTO respuesta = new responseDTO(
             HttpStatus.OK.toString(),
             "All genre relations for the movie were deleted successfully"
+        );
+        return respuesta;
+    }
+
+    public responseDTO deleteByGenreId(int genre_id) {
+        List<movie_genre> movieGenres = data.findAllByGenreId(genre_id);
+        
+        if (movieGenres.isEmpty()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),
+                "No movies found for the given genre"
+            );
+            return respuesta;
+        }
+    
+        data.deleteByGenreId(genre_id);
+    
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(),
+            "All movie relations for the genre were deleted successfully"
         );
         return respuesta;
     }

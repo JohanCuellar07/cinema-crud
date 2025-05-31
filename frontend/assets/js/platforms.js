@@ -135,11 +135,29 @@ function deletePlatform(id) {
             "Content-Type": "application/json"
         }
 
-        const moviePlatformUrl = `http://127.0.0.1:8085/movie_platform/movie/${id}`;
-        await fetch(moviePlatformUrl, {
-            method: "DELETE",
+        const moviePlatformUrl = `http://127.0.0.1:8085/movie_platform/platform/${id}`;
+
+        const responseMovie = await fetch(moviePlatformUrl, {
+            method: "GET",
             headers: headersList
         });
+
+        console.log(responseMovie);
+        if (responseMovie.ok) {
+            const relations = await responseMovie.json();
+            
+            if (relations.length > 0) {
+                await fetch(moviePlatformUrl, {
+                    method: "DELETE",
+                    headers: headersList
+                });
+                console.log("Relaciones eliminadas.");
+            } else {
+                console.log("No había relaciones para borrar.");
+            }
+        } else {
+            console.log("No se pudo comprobar si había relaciones.");
+        }
 
         let response = await fetch(`http://127.0.0.1:8085/platforms/${id}`, {
             method: "DELETE",

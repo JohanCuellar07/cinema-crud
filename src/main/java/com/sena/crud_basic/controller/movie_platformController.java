@@ -40,9 +40,21 @@ public class movie_platformController {
         return new ResponseEntity<>(listPeliculasPlatforms, HttpStatus.OK);
     }
 
+    @GetMapping("/platform/{platformId}")
+    public ResponseEntity<Object> getByPlatformId(@PathVariable int platformId) {
+        var listPorPlatforms = movie_platformService.findAllByPlatformId(platformId);
+        return new ResponseEntity<>(listPorPlatforms, HttpStatus.OK);
+    }
+
     @DeleteMapping("/movie/{movieId}")
     public ResponseEntity<Object> deleteByMovieId(@PathVariable int movieId) {
         var message = movie_platformService.deleteByMovieId(movieId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/platform/{platformId}")
+    public ResponseEntity<Object> deleteByPlatformId(@PathVariable int platformId) {
+        var message = movie_platformService.deleteByPlatformId(platformId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

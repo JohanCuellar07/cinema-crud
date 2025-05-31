@@ -26,6 +26,10 @@ public class movie_platformService {
         return data.findById(id);
     }
 
+    public List<movie_platform> findAllByPlatformId(int platform_id) {
+        return data.findAllByPlatformId(platform_id);
+    }
+
     public responseDTO deleteByMovieId(int movie_id) {
         List<movie_platform> moviePlatforms = data.findAllByMovieId(movie_id);
         
@@ -42,6 +46,26 @@ public class movie_platformService {
         responseDTO respuesta = new responseDTO(
             HttpStatus.OK.toString(),
             "All platform relations for the movie were deleted successfully"
+        );
+        return respuesta;
+    }
+
+    public responseDTO deleteByPlatformId(int platform_id) {
+        List<movie_platform> moviePlatforms = data.findAllByPlatformId(platform_id);
+        
+        if (moviePlatforms.isEmpty()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),
+                "No movies found for the given platform"
+            );
+            return respuesta;
+        }
+    
+        data.deleteByPlatformId(platform_id);
+    
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(),
+            "All movie relations for the platform were deleted successfully"
         );
         return respuesta;
     }

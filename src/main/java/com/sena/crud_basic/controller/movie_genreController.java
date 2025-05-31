@@ -40,9 +40,21 @@ public class movie_genreController {
         return new ResponseEntity<>(listPeliculasGeneros, HttpStatus.OK);
     }
 
+    @GetMapping("/genre/{genreId}")
+    public ResponseEntity<Object> getByGenreId(@PathVariable int genreId) {
+        var listPorGeneros = movie_genreService.findAllByGenreId(genreId);
+        return new ResponseEntity<>(listPorGeneros, HttpStatus.OK);
+    }
+
     @DeleteMapping("/movie/{movieId}")
     public ResponseEntity<Object> deleteByMovieId(@PathVariable int movieId) {
         var message = movie_genreService.deleteByMovieId(movieId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/genre/{genreId}")
+    public ResponseEntity<Object> deleteByGenreId(@PathVariable int genreId) {
+        var message = movie_genreService.deleteByGenreId(genreId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

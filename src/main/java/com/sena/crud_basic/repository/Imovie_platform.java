@@ -14,9 +14,17 @@ import jakarta.transaction.Transactional;
 public interface Imovie_platform extends JpaRepository<movie_platform, Integer> {
     @Query("SELECT mp FROM movie_platform mp WHERE mp.movie.id = :movieId")
     List<movie_platform> findAllByMovieId(@Param("movieId") int movieId);
+
+    @Query("SELECT mp FROM movie_platform mp WHERE mp.platform.id = :platformId")
+    List<movie_platform> findAllByPlatformId(@Param("platformId") int platformId);
     
     @Transactional
     @Modifying
     @Query("DELETE FROM movie_platform mp WHERE mp.movie.id = :movieId")
     void deleteByMovieId(@Param("movieId") int movieId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM movie_platform mp WHERE mp.platform.id = :platformId")
+    void deleteByPlatformId(@Param("platformId") int platformId);
 }

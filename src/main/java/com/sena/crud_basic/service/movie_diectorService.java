@@ -25,6 +25,10 @@ public class movie_diectorService {
         return data.findById(id);
     }
 
+    public List<movie_director> findAllByDirectorId(int director_id) {
+        return data.findAllByDirectorId(director_id);
+    }
+
     public responseDTO deleteByMovieId(int movie_id) {
         List<movie_director> movieDirectors = data.findAllByMovieId(movie_id);
         
@@ -41,6 +45,26 @@ public class movie_diectorService {
         responseDTO respuesta = new responseDTO(
             HttpStatus.OK.toString(),
             "All director relations for the movie were deleted successfully"
+        );
+        return respuesta;
+    }
+
+    public responseDTO deleteByDirectorId(int director_id) {
+        List<movie_director> movieDirectors = data.findAllByDirectorId(director_id);
+        
+        if (movieDirectors.isEmpty()) {
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),
+                "No movies found for the given director"
+            );
+            return respuesta;
+        }
+    
+        data.deleteByDirectorId(director_id);
+    
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(),
+            "All movie relations for the director were deleted successfully"
         );
         return respuesta;
     }

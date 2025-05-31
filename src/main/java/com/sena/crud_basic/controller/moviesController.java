@@ -89,13 +89,13 @@ public class moviesController {
         var message = moviesService.getPlatformsByMovieId(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
+/* 
     @GetMapping("/reviews/{id}")
     public ResponseEntity<Object> getReviewsByMovieId(@PathVariable int id) {
         var message = reviewsService.getReviewsByMovieId(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    
+    */
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteMovie(@PathVariable int id){
         var message = moviesService.deleteMovie(id);

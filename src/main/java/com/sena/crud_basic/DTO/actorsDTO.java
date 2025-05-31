@@ -11,6 +11,8 @@ public class actorsDTO {
 
     private String nationality;
 
+    private boolean status;
+
     public actorsDTO(String name, String url_image, LocalDate birth, String nationality) {
         this.name = name;
         this.url_image = url_image;
@@ -48,5 +50,13 @@ public class actorsDTO {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

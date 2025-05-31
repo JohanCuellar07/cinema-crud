@@ -171,11 +171,32 @@ function deleteActor(id) {
             "Content-Type": "application/json"
         }
 
-        const movieActorUrl = `http://127.0.0.1:8085/movie_actor/movie/${id}`;
+        const movieActorUrl = `http://127.0.0.1:8085/movie_actor/actor/${id}`;
         await fetch(movieActorUrl, {
             method: "DELETE",
             headers: headersList
         });
+
+        const responseMovie = await fetch(movieActorUrl, {
+            method: "GET",
+            headers: headersList
+        });
+
+        if (responseMovie.ok) {
+            const relations = await responseMovie.json();
+            
+            if (relations.length > 0) {
+                await fetch(movieActorUrl, {
+                    method: "DELETE",
+                    headers: headersList
+                });
+                console.log("Relaciones eliminadas.");
+            } else {
+                console.log("No había relaciones para borrar.");
+            }
+        } else {
+            console.log("No se pudo comprobar si había relaciones.");
+        }
 
         let response = await fetch(`http://127.0.0.1:8085/actors/${id}`, {
             method: "DELETE",

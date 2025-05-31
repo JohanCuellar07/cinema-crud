@@ -39,9 +39,21 @@ public class movie_actorController {
         return new ResponseEntity<>(listPeliculasActores, HttpStatus.OK);
     }
 
+    @GetMapping("/actor/{actorId}")
+    public ResponseEntity<Object> getByActorId(@PathVariable int actorId) {
+        var listPorActores = movie_actorService.findAllByActorId(actorId);
+        return new ResponseEntity<>(listPorActores, HttpStatus.OK);
+    }
+
     @DeleteMapping("/movie/{movieId}")
     public ResponseEntity<Object> deleteByMovieId(@PathVariable int movieId) {
         var message = movie_actorService.deleteByMovieId(movieId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/actor/{actorId}")
+    public ResponseEntity<Object> deleteByActorId(@PathVariable int actorId) {
+        var message = movie_actorService.deleteByActorId(actorId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
